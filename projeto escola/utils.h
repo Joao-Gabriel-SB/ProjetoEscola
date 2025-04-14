@@ -1,6 +1,6 @@
 #include "utils.c"
 
-void campoResposta(short int *a);
-void listarAlunos(short int a);
+void campoResposta(char *a);
+void listarAlunos(char a);
 void menuIniciar();
 void Clear();
