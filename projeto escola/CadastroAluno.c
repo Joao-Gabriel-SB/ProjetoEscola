@@ -5,6 +5,7 @@
 
 #define MaxAlunos 2
 #define TamMax 100
+
     typedef struct{
             int dia;
             int mes;
@@ -66,7 +67,7 @@
 
 
 
-
+            //função listar em prototipo
             putchar('\n');
             for(char i=0; i<MaxAlunos; i++){
                 for(char x = 0; x<100;x++)
