@@ -1,3 +1,6 @@
+#ifndef RESOURCES_H
+#define RESOURCES_H
+
 //função clear
 #define start puts("\x1B[H")
 #define c puts("\x1B[2J")
@@ -21,3 +24,4 @@
 #define white_F "\x1B[37m"
 #define default_F "\x1B[39m"
 
+#endif

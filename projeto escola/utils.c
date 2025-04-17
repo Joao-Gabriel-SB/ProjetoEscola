@@ -16,18 +16,14 @@ void menuIniciar(){
 	printf("\n\x1B[1;33mMenu inicial\t(0)%s",reset);
 }
 
-void listarAlunos(char a){
-	switch (a){
-		case '1': printf("vou listar todos os alunos");break;
-		case '2':	printf("Sexo(1)\tNome(2)\tIdade(3)");
-			campoResposta(&a);
-			switch(a){
-			case '1': printf("Ordenando por sexo...");break;
-			case '2': printf("Ordenando por nome...");break;
-			case '3': printf("Ordenando por Idade...");break;
-			}
-			break;
-		case '3':printf("vou listar todos os alunos");break;
-		case '0':printf("vou listar todos os alunos");break;
-	}
+void AlunosMaisOpcoes(char *a){
+  
+    printf("Sexo(1)\tNome(2)\tIdade(3)");
+    campoResposta(&*a);
+    switch(*a){
+      case '1': printf("\n[7] Homem\t\t [8] Mulher"); campoResposta(&*a); break;
+      case '2': printf("Ordenando por nome...");break;
+      case '3': printf("Ordenando por Idade...");break;
+      }
 }
+
