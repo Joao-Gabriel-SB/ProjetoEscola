@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utils.h"
-#include <string.h>
 
 #define MaxAlunos 3
 #define TamMax 100
@@ -20,49 +19,77 @@
         char cpf[12];
         int matricula;
   }CadAlunos;
-    
 
-    void ListarAlunos(short int * qtdAlunos, CadAlunos alunosCadastrados[MaxAlunos],int){
-    
-        char continuar = '1';
+
+int BuscaInt( int n, CadAlunos* vet, int elemento ){
+
+    int i, indice = -1;
+
+    for(i=0; i<n; i++){
+        if( elemento == vet[i].matricula )
+            return i;
         
-        for(char i=0; i<*qtdAlunos; i++){
+    }
+    
+}
+    
 
-            for(char x = 0; x<100;x++)//divisões
-                printf("-");
-
-            printf("\n\nNome:\t\t%s\n",alunosCadastrados[i].nome);
-
-            printf("Nascimento:\t");
-            printf("%02d/%02d/%d\n",alunosCadastrados[i].nascimento.dia, alunosCadastrados[i].nascimento.mes, alunosCadastrados[i].nascimento.ano);
-
-            alunosCadastrados[i].sexo == 'M' ? printf("Sexo:\t\tMasculino\n"): printf("sexo:\t\tFeminino\n");
-            //094 32 676 501
-            printf("Cpf:\t\t");
-            for(char a = 0; a<11;a++){
-
-                if(a == 3 || a == 6)
-                    printf(".");
-                if(a == 9)
+    void ListarAlunos(short int * qtdAlunos, CadAlunos* alunosCadastrados, int n, char key){
+    
+        char continuar = '1', sexo = '0';
+        int i = 0;
+        int x;        
+        
+        switch (key){
+         case '1': i = 0; break;
+         case '3': printf("Matricula do estudante:\t"); scanf(" %d",&x); i = BuscaInt(n, alunosCadastrados, x ) ; break;
+         case '5': break;
+         case '6': break;
+         case '7': sexo = '1'; printf("\t\t\tLista de alunos\n"); break;
+         case '8': sexo = '2'; printf("\t\t\tLista de alunas\n"); break;
+        }
+        
+        for(; i<*qtdAlunos && continuar == '1'; i++){
+            
+            if( sexo == '0' || (sexo == '1' && alunosCadastrados[i].sexo == 'M') || (sexo == '2' && alunosCadastrados[i].sexo == 'F')){ // separa por sexo
+                for(char x = 0; x<100; x++)//divisões
                     printf("-");
 
-                    printf("%c",alunosCadastrados[i].cpf[a]);
-            }
-            printf("\n");
+                printf("\n\nNome:\t\t%s\n",alunosCadastrados[i].nome);
 
-            printf("Matricula:\t%d\t\n\n",alunosCadastrados[i].matricula);
-        }
+                printf("Nascimento:\t");
+                printf("%02d/%02d/%d\n",alunosCadastrados[i].nascimento.dia, alunosCadastrados[i].nascimento.mes, alunosCadastrados[i].nascimento.ano);
+
+                alunosCadastrados[i].sexo == 'M' ? printf("Sexo:\t\tMasculino\n"): printf("sexo:\t\tFeminino\n");
+               
+                printf("Cpf:\t\t");
+                for(char a = 0; a<11;a++){
+
+                    if(a == 3 || a == 6)
+                        printf(".");
+                    if(a == 9)
+                        printf("-");
+
+                        printf("%c",alunosCadastrados[i].cpf[a]);
+
+                    }
+
+                printf("\nMatricula:\t%d\t\n\n",alunosCadastrados[i].matricula);
+                
+                continuar = key == '3' ? '0': '1';
+                }
+           }
         getchar();
     }
 
 
-    int InserirAluno(short int *qtdAlunos,CadAlunos alunosCadastrados[MaxAlunos],int){
-        *qtdAlunos = 0;
+    int InserirAluno(short int *qtdAlunos, CadAlunos* alunosCadastrados, int n){
+
         char continuarCadastrando = '1';
 
             while(continuarCadastrando == '1'){
 
-                if(*qtdAlunos == MaxAlunos){
+                if(*qtdAlunos == n){
                     char continuar = '1';              
                     printf("Sem vagas disponiveis.");
                     menuIniciar();
@@ -99,7 +126,7 @@
                         case '0': return 0;
                         case '1': break;
                         case '2':
-                        ListarAlunos(&*qtdAlunos,alunosCadastrados,MaxAlunos);
+                        ListarAlunos(&*qtdAlunos,alunosCadastrados,n,'1');
                         printf("[1] Cadastrar outro aluno");menuIniciar();
                         campoResposta(&continuarCadastrando);
                     }
