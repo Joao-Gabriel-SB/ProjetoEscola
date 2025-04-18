@@ -1,11 +1,6 @@
 #ifndef RESOURCES_H
 #define RESOURCES_H
 
-//função clear
-#define start puts("\x1B[H")
-#define c puts("\x1B[2J")
-
-
 //styles
 #define bold "\x1B[1m"
 #define reset "\x1B[0m"

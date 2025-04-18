@@ -3,64 +3,141 @@
 #include <locale.h>
 #include "utils.h"
 #include "resources.h"
-#include "CadastroAluno.h"
+#include "cruds.h"
+#include "database.h"
 
 int main(int argc,char *argv[]){
 
 	setlocale(LC_ALL,"Portuguese");
+
     
-    int matriculaBusca, teste;
 	char sair=0,key;
-	CadAlunos alunosCadastrados[MaxAlunos], copia[MaxAlunos];
-    short int qtdAlunos = 0;
-      
-	Clear();
-	printf("%s\n\tSeja bem vindo ao sistema de cadastro da escola!\t\t\n %s",bold,resetBold);
+          
+	system("clear||cls");
+
+	printf("%s\n\t\tSeja bem vindo ao sistema de cadastro da escola!\t\t\n%s",bold,resetBold);Spacer(75);
 
 	do{
-		printf("\n\t\t\t%sMENU INICIAL\n\n\t\t Oque você deseja fazer?%s\n\n[1] Menu cadastro\t\t[2] Menu aluno\t\t[3] Menu Professor\t\n[4] Menu disciplina\t\t%s[0] Sair\t%s",bold,reset,yellow_F,reset);
-		campoResposta(&key);
-		Clear();
+		printf("\n\t\t\t\t%sMENU INICIAL\n\n",bold); Spacer(75);
+        
+        printf("[1] Menu cadastro\t\t");
+        printf("[2] Menu aluno\t\t");
+        printf("[3] Menu Professor\t\n");
+        printf("[4] Menu disciplina\t\t");
+        printf("[5] Pesquisar\t\t");
+        printf("%s[0] Sair\t%s", yellow_F, reset);
+		AnswerField(&key);
+		system("clear||cls");
+
+        if( key == '0' ) break;        
 
 		switch (key){
 
-		case '1':
-			printf("\t\t%sMENU CADASTRO%s\n\n",bold,reset);
-			printf("\t%sO que você deseja cadastrar:%s\n[1] Aluno\t\t[2] Professor\t\t[3] Disciplina\t",bold,reset);
-			menuIniciar();  
-			campoResposta(&key);
-                        switch(key){
-			      case '1': InserirAluno(&qtdAlunos,alunosCadastrados,MaxAlunos);break;
-			    }
-			key = '1';
-			break;
-		case '2':
-			printf("\t\t\t%sMENU ALUNOS%s\n\n",bold,reset);
-			printf("[1] Listar todos os alunos\t\t[2] Listar alunos ordenados por...\t\t[3] Buscar aluno por matricula");
-			menuIniciar();	campoResposta(&key);
-                        switch(key){
-                            case '1': ListarAlunos( &qtdAlunos, alunosCadastrados, MaxAlunos, key);getchar();break;
-                            case '2': AlunosMaisOpcoes(&key); ListarAlunos( &qtdAlunos, alunosCadastrados, MaxAlunos, key); getchar(); break;
-                            case '3': ListarAlunos( &qtdAlunos, alunosCadastrados, MaxAlunos, key);getchar(); break;
-                        }
-			key = '1';
-			break;
-		case '3':
-			printf("\t\t%sMENU PROFESSORES%s\n\n",bold,reset);
-			printf("[1] Listar professores\t");
-			menuIniciar();campoResposta(&key);
+		    case '1':
 
-			key = '1';
-			break;
-		case '4':
-			printf("\t\t%sMENU DISCIPLINAS%s\n\n",bold,reset);
-			printf("[1] Listar disciplinas\t");
-			menuIniciar();campoResposta(&key);
+			    printf("\t\t\t%sMENU CADASTRO%s\n\n",bold,reset); Spacer(70);
+			    printf("[1] Cadastrar\t\t");
+                printf("[2] Atualizar\t\t");
+                printf("[3] Excluir\t\t");
+                StartMenu();
+                Until( &key, '0', '3' );
+                
+                switch(key){
 
-			key = '1';
-			break;
+			        case '1': 
+
+                            printf("[4] Aluno\t\t");
+                            printf("[5] Professor\t\t");
+                            printf("[6] Disciplina\t");
+			                Until( &key, '4', '6' );
+
+                                switch(key){
+
+			                        case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent ); break;
+                                    case '5':/*AQUI VAI A FUNÇÃO DE CADASTRO DE PROFESSORES DE ENZO */ break;
+                                    case '6':/*AQUI VAI A FUNÇÃO DE CADASTRO DE PROFESSORES DE NETO */ break;
+			                    }                               
+                            
+                            break;
+
+                    case '2':/*AQUI VAI A FUNÇÃO DE Atualização */ 
+
+                
+                        break;  
+    
+                    case '3':/*AQUI VAI A FUNÇÃO DE Exclusão*/ 
+
+
+                        break;
+
+			    } 
+			    
+			    break;
+
+		    case '2':
+
+                do{ 
+
+			        printf("\t\t\t\t\t\t%sMENU ALUNOS%s\n\n",bold,reset);Spacer(120);
+			        printf("[1] Listar todos os alunos\t\t");
+                    printf("[2] Listar alunos ordenados por...\t\t");
+                    printf("[3] Buscar aluno por matricula");
+                    StartMenu();	
+                    
+                    Until( &key, '0', '3' );           
+                    
+                    if( key == '2' ){
+                        
+                        printf("[5] Sexo...\t[6] Nome\t[7] Idade");
+                        Until( &key, '5', '7' );
+
+                            switch(key){
+                                case '5': printf("\n[8] Homem\t\t [9] Mulher"); Until( &key, '8', '9' ); break;
+                                case '6': break;
+                                case '7': break;   
+                            }
+                    
+                    }
+                    
+                    if( key != '0') ListStudents( amountStudents, registredStudents, MaxStudent, key);
+                   
+                    Pause();
+                
+                }while( key != '0' );
+        			    
+			    break;
+
+		    case '3':
+
+			    printf("\t\t%sMENU PROFESSORES%s\n\n",bold,reset);
+			    printf("[1] Listar professores\t");
+                printf("[2] Em Breve...");
+			    StartMenu();
+                AnswerField(&key);
+			    
+			    break;
+
+		    case '4':
+
+			    printf("\t\t%sMENU DISCIPLINAS%s\n\n",bold,reset);
+			    printf("[1] Listar disciplinas\t");
+                printf("[2] Em Breve...");
+			    StartMenu();
+                AnswerField(&key);
+
+			    break;
+
+            case '5':
+             
+                ListStudents( amountStudents, registredStudents, MaxStudent, key);               
+                Pause();
+                break;                
+
 		}
-	Clear();
+
+        key = '1';
+	    system("clear||cls");
+        
 	}while(key != '0');
 
 }
