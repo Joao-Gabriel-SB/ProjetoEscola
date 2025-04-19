@@ -53,7 +53,21 @@ void Spacer(int tamanhoDaBarra){
 
 //=====================================================================================================================================================================================================
 
-int GetMatricula(void* element){
+void ToLower( char* copyVetIn, char* vetIn, int tamVetIn ){
+
+	for( int i = 0; i < tamVetIn; i++ )
+		copyVetIn[i] = vetIn[i];
+
+	for (int i = 0; i < tamVetIn; i++){
+		
+			if( copyVetIn[i] >= 'A' && copyVetIn[i] <= 'Z' )
+				copyVetIn[i] = copyVetIn[i] + 32;
+
+	}
+}
+//=====================================================================================================================================================================================================
+
+int GetId(void* element){
     
         return (( Student* )element)-> id; 
 
@@ -81,7 +95,7 @@ int SearchInt( int tamanhoDoVetor, void* Nomevetor, size_t tipoDoElemento, int (
 
         void* campoStructDesejado = ( char* )Nomevetor + ( i * tipoDoElemento ); 
 
-        if( funcGet( campoStructDesejado ) == valorDesejado)
+        if( funcGet( campoStructDesejado ) == valorDesejado )
 
             index = i;
             
@@ -119,87 +133,108 @@ int CompareBirthDay( Student a, Student b ){
 
 
 //=====================================================================================================================================================================================================
-   
-void CharSort( int amountStudants, const int tamVetor1, Student* vetor, Student* vetOrdenado, const int tamVetor2, int selector ){
+
+void CharSort( int amountStudents, const int tamVetIn, Student* vetIn, Student* vetOut, const int tamVetOut, int selector ){
 
      int i, j, smaller;
      Student temp;
     
      if ( selector == 1 ){
-    
-            for( i = 0; i < amountStudants; i++)
-            vetOrdenado[i] = vetor[i];
+	
+				Student copyVetOut[tamVetIn];
+				for( int i = 0; i < tamVetIn; i++ )
+					ToLower( copyVetOut[i].name, vetOut[i].name, tamVetIn );
 
-            for( i = 0; i < amountStudants; i++ ){
+            for( i = 0; i < amountStudents; i++)
+            vetOut[i] = vetIn[i];
+
+            for( i = 0; i < amountStudents; i++ ){
 
                 smaller = i;
                       
-                for( j = i+1; j < amountStudants; j++ ){
+                for( j = i+1; j < amountStudents; j++ ){
 
-                    if( strcmp( vetOrdenado[smaller].name, vetOrdenado[j].name ) > 0 ){
+                    if( strcmp( copyVetOut[smaller].name, copyVetOut[j].name ) > 0 ){
 
                     smaller = j;
         
                     }            
                 }
             
-            temp = vetOrdenado[smaller];
-            vetOrdenado[smaller] = vetOrdenado[i];
-            vetOrdenado[i] = temp;    
+            temp = vetOut[smaller];
+            vetOut[smaller] = vetOut[i];
+            vetOut[i] = temp;    
             }   
 
     }else{
 
-            for( i = 0; i < amountStudants; i++)
-                vetOrdenado[i] = vetor[i];
+            for( i = 0; i < amountStudents; i++)
+                vetOut[i] = vetIn[i];
 
 
-            for( i = 0; i < amountStudants; i++ ){
+            for( i = 0; i < amountStudents; i++ ){
 
                 smaller = i;
                   
-                for( j = i+1; j < amountStudants; j++ ){
+                for( j = i+1; j < amountStudents; j++ ){
 
-                    if( CompareBirthDay( vetOrdenado[smaller], vetOrdenado[j] ) > 0 ){
+                    if( CompareBirthDay( vetOut[smaller], vetOut[j] ) > 0 ){
 
                         smaller = j;
     
                     }            
                 }
         
-            temp = vetOrdenado[smaller];
-            vetOrdenado[smaller] = vetOrdenado[i];
-            vetOrdenado[i] = temp;    
+            temp = vetOut[smaller];
+            vetOut[smaller] = vetOut[i];
+            vetOut[i] = temp;    
 
-            
             }
     }
 }
 
 //=====================================================================================================================================================================================================
 
-int SearchChar( Student* vetor, const int tamVetor1, Student* vetOrdenado, const int tamVetor2, char* strDesejada, int tamVetor3 ){
+int SearchChar( Student* vetIn, const int tamVetIn, Student* vetOut, const int tamVetOut, char* strDesejada, int tamStrDesejada ){
 
-    int amountStudantsLocal = 0;
+   int amountStudentsLocal = 0;
+
+	Student copyVetIn[tamVetIn];
+	for( int i = 0; i < tamVetIn; i++ )
+		ToLower( copyVetIn[i].name, vetIn[i].name, tamVetIn );
+
+		ToLower( strDesejada, strDesejada, tamStrDesejada );
     
-    for( int i = 0; i < tamVetor1; i++ ){
+    for( int i = 0; i < tamVetIn; i++ ){
 
 
-        if( strncmp( vetor[i].name, strDesejada, tamVetor3 ) == 0 ) {   
+        if( strncmp( copyVetIn[i].name, strDesejada, tamStrDesejada ) == 0 ) {   
 
-            vetOrdenado[amountStudantsLocal] = vetor[i];
-            amountStudantsLocal++;
+            vetOut[amountStudentsLocal] = vetIn[i];
+            amountStudentsLocal++;
             
         }
        
     }
 
-    return amountStudantsLocal;
+    return amountStudentsLocal;
 
 }
 
 //=====================================================================================================================================================================================================
 
+int authenticateCpf(){
 
+	printf("Em breve...");
+
+}
+
+//=====================================================================================================================================================================================================
+
+int authenticateBarthday(){
+
+	printf("Em breve...");
+
+}
 
 //=====================================================================================================================================================================================================

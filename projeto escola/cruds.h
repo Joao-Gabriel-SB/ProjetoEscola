@@ -3,7 +3,9 @@
 
 #include "cruds.c"
 
-int ListStudents(int amountStudants, Student* registredStudants, const int ArraySize, char key);
-int InsertStudent( int* amountStudants, Student* registredStudants, const int ArraySize );
+int ListStudents(int amountStudents, Student* registredStudents, const int ArraySize, char key);
+int InsertStudent( int* amountStudents, Student* registredStudents, const int ArraySize, int* idCounter  );
+int UpdateStudent( int* amountStudents, Student* registredStudents, const int ArraySize );
+int DeleteStudent( int* amountStudents, Student* registredStudents, const int ArraySize );
 
 #endif
