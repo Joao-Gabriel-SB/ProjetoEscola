@@ -22,7 +22,7 @@ typedef struct {
 Student registredStudents[MaxStudent]; 
 //Student copy[MaxStudent];
 int amountStudents;
-
+int idCounter = 2025000;
 
 
 
