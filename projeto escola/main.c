@@ -14,25 +14,49 @@ int string_vazia(char *str) {
   return 1;
 }
 
+typedef struct{
+  char nome[50];
+  char codigo[50];
+  int semestre;
+  char professor[50];
+  int ativo;
+  char alunos[MAX_ALUNOS_DISCIPLINA][50];
+  int qtd_alunos;
+} disciplina;
+
+disciplina lista_disciplinas[TAM_DISCIPLINAS];
+
 main(){
+
 
   int sair=0, opcao;
   int qtd_disciplina=0;
   int achou = 0;
-
-  typedef struct{
-    char nome[50];
-    char codigo[50];
-    int semestre;
-    char professor[50];
-    int ativo;
-    char alunos[MAX_ALUNOS_DISCIPLINA][50];
-    int qtd_alunos;
-  } disciplina;
-
   disciplina lista_disciplinas[TAM_DISCIPLINAS];
 
+  printf("                  Projeto Escola\n\n");
 
+  while(!sair){
+    printf("[1] Aluno");
+    printf("  [2] Professor");
+    printf("  [3] Disciplina");
+    printf("  [0] Sair\n\n");
+
+    scanf("%d",&opcao);
+
+
+    switch(opcao){
+      case 0:
+        sair=1;
+        break;
+      
+      case 1:
+        printf("                  Interface Aluno\n\n");      
+        break;
+      
+      case 2:
+        printf("                  Interface Professor\n\n");
+        break;
       
       case 3:
         printf("                                        Interface Disciplina\n\n");
@@ -200,7 +224,7 @@ main(){
               break;
 
             case 5:
-              printf("                                        Inclusão de Aluno na Disciplina\n\n");
+              printf("                                        Inclusão de Aluno\n\n");
               if (qtd_disciplina == 0) {
                 printf("Não há disciplinas cadastradas.\n\n");
                 break;
@@ -237,7 +261,7 @@ main(){
               break;
 
             case 6:
-              printf("                                        Exclusão de Aluno na Disciplina\n\n");
+              printf("                                        Exclusão de Aluno\n\n");
               if (qtd_disciplina == 0) {
                 printf("Não há disciplinas cadastradas.\n\n");
                 break;
