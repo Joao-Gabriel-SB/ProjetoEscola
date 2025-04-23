@@ -26,13 +26,12 @@ typedef struct{
 
 disciplina lista_disciplinas[TAM_DISCIPLINAS];
 
-main(){
-
+int main(){
 
   int sair=0, opcao;
   int qtd_disciplina=0;
   int achou = 0;
-  disciplina lista_disciplinas[TAM_DISCIPLINAS];
+  
 
   printf("                  Projeto Escola\n\n");
 
@@ -328,4 +327,5 @@ main(){
         break;
     }
   }	
+
 }
