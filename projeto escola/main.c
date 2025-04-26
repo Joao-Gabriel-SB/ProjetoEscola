@@ -128,7 +128,7 @@ int main(int argc,char *argv[]){
 					 	StartMenu();
 		            Until( &key, '0', '3' );
 					 
-						if( key == '1' ) ListarProfessor( ListaProfessores, &posicao );						
+						if( key == '1' ) ListarProfessor( ListaProfessores, posicao );						
 
 						if( key == '2' ){
 		                     

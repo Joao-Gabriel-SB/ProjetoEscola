@@ -99,13 +99,17 @@ int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao
     return 1;
 }
 
-void ListarProfessor( professores ListaProfessores[], int *posicao ){
+void ListarProfessor( professores ListaProfessores[], int posicao ){
 
-    //Listando todos os professores cadastrados no sistema
+   int i;
+	
+	if( posicao == 0 ) {
+      printf("\n\t\t\t\t\t%sNenhum aluno Matriculado.%s\n\n\n",yellow_F,reset);
+      Pause();
+      return 0;
+   }
 
-    int i;
-
-        for(i=0;i < *posicao;i++){
+        for(i=0;i < posicao;i++){
 
 			Spacer(75);
 			
@@ -131,9 +135,10 @@ void ListarProfessor( professores ListaProfessores[], int *posicao ){
 
 			printf("\nMatricula:\t%d\t\n\n",ListaProfessores[i].matricula );
          
-
         }
+
 	Pause();
+
 }
 
 int atualizar_professor(professores ListaProfessores[], int *posicao){
@@ -282,8 +287,10 @@ int excluir_professor(professores ListaProfessores[],int *posicao){
 }
 
 void listar_professor_nome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao){
+
     int i,j;
     int comparador;
+
     for(i=0;i < *posicao; i++)
         {
             CopiaProfessores[i] = ListaProfessores[i]; 
