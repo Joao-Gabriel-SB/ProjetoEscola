@@ -1,27 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "utils.h"
-#include "database.h"
 #include "resources.h"
-/*
-typedef struct{
-        int day;
-        int month;
-        int year;
-}StructBirth;
-
-typedef struct {
-        char         name[StrSizeMax];
-        StructBirth  birthday;
-        char         sex;
-        char         cpf[12];
-        int          id;
-}Student;
-*/
+#include "database.h"
+#include "utils.h"
 
 
 //==========================================================================================================================================================================================
+
 int ListStudents(int amountStudents, Student* registredStudents, const int ArraySize, char key){        
 
         char again = '1'; 
@@ -47,7 +33,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
 
             case '3': 
 
-                printf("Matricula do estudante:\t"); 
+                printf("Matricula do estudante:\t");
                 scanf(" %d",&desiredIdToFind); 
                 i = SearchInt( amountStudents, registredStudents, sizeof(Student), GetId, desiredIdToFind );
 
@@ -106,17 +92,19 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
         for(; i<amountStudents && again == '1'; i++){
             
             if( sex == '0' || (sex == '1' && copy[i].sex == 'M') || (sex == '2' && copy[i].sex == 'F')){ // separa por sexo
+
                 Spacer(75);
 
 
                 printf("\n\nNome:\t\t%s\n",copy[i].name);
 
                 printf("Nascimento:\t");
-                printf("%02d/%02d/%d\n",copy[i].birthday.day, copy[i].birthday.month, copy[i].birthday.year);
+                printf("%02d/%02d/%d\n", copy[i].birthday.day, copy[i].birthday.month, copy[i].birthday.year);
 
                 copy[i].sex == 'M' ? printf("Sexo:\t\tMasculino\n"): printf("sexo:\t\tFeminino\n");
                
                 printf("Cpf:\t\t");
+
                 for(char a = 0; a<11;a++){
 
                     if(a == 3 || a == 6)
@@ -136,7 +124,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
 				}
             }
         }
-        Pause();
+      Pause();
 		return 0;
 }
 
@@ -158,6 +146,7 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
                       }
                       return -1;
                 }
+
 				system("clear||cls");
 				printf("\t\t\t%sCadastrando Aluno%s\n\n", bold, reset);
 				Spacer(75);

@@ -22,11 +22,34 @@ typedef struct {
 Student registredStudents[MaxStudent]; 
 //Student copy[MaxStudent];
 int amountStudents;
-int idCounter = 2025000;
+int idCounter = 202521001;
 
 
 
-//====================================================================================================================
+// Professores ====================================================================================================================
 
+#define MaxProfessor 3
+
+typedef struct{
+int dia;
+int mes;
+int ano;
+int total;
+}struct_nascimento;
+
+typedef struct{
+int matricula;
+char nome[50];
+char sexo;
+struct_nascimento nascimento;
+char cpf[12];  
+int ativo;
+}professores;
+
+professores ListaProfessores[MaxProfessor], CopiaProfessores[MaxProfessor], aux_struct;
+int posicao = 0;
+int IncrementadorMatricula = 202542000;
+
+// Disciplinas =====================================================================================================================
 
 #endif

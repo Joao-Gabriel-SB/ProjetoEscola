@@ -13,4 +13,13 @@ int SearchInt( int tamanhoDoVetor, void* Nomevetor, size_t tipoDoElemento, int (
 void CharSort( int amountStudents, const int tamVetor1, Student* vetor, Student* vetOrdenado, const int tamVetor2, int selector );
 int SearchChar( Student* vetIn, const int tamVetIn, Student* vetOut, const int tamVetOut, char* strDesejada, int tamstrDesejada );
 int CompareBirthDay( Student a, Student b );
+
+// ENZO===================================================================================================================================
+
+int menu();
+void limpar_buffer();
+int validador_cpf (char cpf_validation[]);
+int validador_data (int dia, int mes, int ano);
+
+
 #endif 
