@@ -164,9 +164,8 @@ int main(int argc,char *argv[]){
 		               }
 		                 
 		             }
-		                 
-		             //if( key != '0') ListStudents( amountStudents, registredStudents, MaxStudent, key);
-		                
+					if (key == '3') BuscarPorMatriculaProf ( ListaProfessores, posicao );
+		                                 
 		             Pause();
 		             system("clear||cls");
 
