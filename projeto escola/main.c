@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#include "utils.h"
 #include "resources.h"
-#include "cruds.h"
 #include "database.h"
+#include "utils.h"
+#include "cruds.h"
+#include "cruds_professor.h"
+
 
 int main(int argc,char *argv[]){
 
    setlocale(LC_ALL,"Portuguese");
 
-    
-   char sair=0,key;
+   int opcao, sair = 1;
+   char key;
           
 	system("clear||cls");
 
@@ -26,7 +28,7 @@ int main(int argc,char *argv[]){
       printf("[4] Menu disciplina\t\t");
       printf("[5] Pesquisar\t\t");
       printf("%s[0] Sair\t%s", yellow_F, reset);
-		AnswerField(&key);
+		Until(&key, '0', '5');
 		system("clear||cls");
 
       if( key == '0' ) break;        
@@ -54,7 +56,7 @@ int main(int argc,char *argv[]){
                         	switch(key){
 
 			                  	case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent, &idCounter ); break;
-                           	case '5':/*AQUI VAI A FUNÇÃO DE CADASTRO DE PROFESSORES DE ENZO */ break;
+                           	case '5': CadastrarProfessor( ListaProfessores, MaxProfessor ,&posicao, &IncrementadorMatricula ); break;
                            	case '6':/*AQUI VAI A FUNÇÃO DE CADASTRO DE PROFESSORES DE NETO */ break;
 			                  }                               
                             
@@ -110,18 +112,48 @@ int main(int argc,char *argv[]){
                    
                   Pause();
                 	system("clear||cls");
+
                 	}while( key != '0' );
         			    
 		    	break;
 
 		    	case '3':
 
-			   	printf("\t\t%sMENU PROFESSORES%s\n\n",bold,reset);
-			    	printf("[1] Listar professores\t");
-               printf("[2] Em Breve...");
-			    	StartMenu();
-               AnswerField(&key);
-			    
+					do{					
+
+						printf("\t\t%sMENU PROFESSORES%s\n\n",bold,reset);
+					 	printf("[1] Listar todos os professores\t");
+		            printf("[2] Listar alunos ordenados por...");
+						printf("[3] Buscar aluno por matricula");
+					 	StartMenu();
+		            Until( &key, '0', '3' );
+					 
+						if( key == '1' ) ListarProfessor( ListaProfessores, posicao );						
+
+						if( key == '2' ){
+		                     
+		               printf("[5] Sexo...\t[6] Nome\t[7] Idade");
+		               Until( &key, '5', '7' );
+
+		               switch(key){
+
+		               case '5': printf("\n[8] Homem\t\t [9] Mulher"); Until( &key, '8', '9' ); ListarProfessorSexo( ListaProfessores, &posicao, key); break;
+		               case '6': ListarProfessorNome( ListaProfessores, CopiaProfessores, aux_struct, &posicao ); break;
+		               case '7': ListarProfessorIdade( ListaProfessores, CopiaProfessores, aux_struct, &posicao ); break;   
+
+		               }
+		                 
+		             }
+		                 
+		             //if( key != '0') ListStudents( amountStudents, registredStudents, MaxStudent, key);
+		                
+		             Pause();
+		             system("clear||cls");
+
+                	}while( key != '0' );					
+
+
+				
 			   break;
 
 		    	case '4':
@@ -130,7 +162,7 @@ int main(int argc,char *argv[]){
 			   	printf("[1] Listar disciplinas\t");
                printf("[2] Em Breve...");
 			    	StartMenu();
-               AnswerField(&key);
+               Until(&key, '0', '3');
 
 			   break;
 
@@ -147,4 +179,4 @@ int main(int argc,char *argv[]){
         
 	}while(key != '0');
 
-}
+} 	
