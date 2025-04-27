@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include "resources.h"
 #include "database.h"
-#include "utils.h"
+
 
 void Pause(){
     
@@ -24,17 +24,32 @@ void AnswerField(char *a){
 
 void Until( char* a, char lowerest, char biggest ){
 
-    do{
+	char freeBuffer[StrSizeMax];
+   *a =  lowerest - 1;	
 
-    AnswerField(a);
+	do{
 
-        if( ( *a < lowerest || *a > biggest ) ){
+		printf("\nR: ");
+		scanf(" %[^\n]",freeBuffer);
+		putchar('\n');
+		
+		if( strlen (freeBuffer) > 1 ){
 
-            printf("%sOpção invalida, tente novamente!%s", yellow_F, reset );
-            Pause();
+			printf("%sOpção invalida, tente novamente!%s\n\n", yellow_F, reset );
+			continue;
 
-        }
-    
+		}else{
+
+			*a = freeBuffer[0];
+
+		}
+
+		     if( ( *a < lowerest || *a > biggest ) ){
+
+		         printf("%sOpção invalida, tente novamente!%s\n\n", yellow_F, reset );
+		         
+		     }
+		 
     }while( *a < lowerest || *a > biggest );
 
 } 
@@ -239,7 +254,7 @@ int authenticateBarthday(){
 
 }
 
-// Emzo =====================================================================================================================================================================================================
+// Enzo =====================================================================================================================================================================================================
 
 
 int menu(){ // FUNÇÃO PARA PRINTAR O MENU PRINCIPAL DE ESCOLHA
@@ -249,10 +264,14 @@ int menu(){ // FUNÇÃO PARA PRINTAR O MENU PRINCIPAL DE ESCOLHA
   return opcao;
 }
 
+
+
 void limpar_buffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
+
+
 
 int validador_cpf (char cpf_validation[]){
   int numeros[11],soma = 0 ,i,j,digito1,digito2;

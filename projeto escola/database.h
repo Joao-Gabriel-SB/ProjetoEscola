@@ -1,5 +1,6 @@
 #ifndef DATABASE_H
 #define DATABASE_H
+
 //Alunos==============================================================================================================
 
 #define MaxStudent 3
@@ -17,6 +18,7 @@ typedef struct {
         char         sex;
         char         cpf[12];
         int          id;
+		
 }Student;
 
 Student registredStudents[MaxStudent]; 
