@@ -104,9 +104,9 @@ void ListarProfessor( professores ListaProfessores[], int posicao ){
    int i;
 	
 	if( posicao == 0 ) {
-      printf("\n\t\t\t\t\t%sNenhum aluno Matriculado.%s\n\n\n",yellow_F,reset);
+      printf("\n\t\t\t\t\t%sNenhum professor Matriculado.%s\n\n\n",yellow_F,reset);
       Pause();
-      return 0;
+      i = posicao + 1;
    }
 
         for(i=0;i < posicao;i++){
@@ -141,7 +141,7 @@ void ListarProfessor( professores ListaProfessores[], int posicao ){
 
 }
 
-int atualizar_professor(professores ListaProfessores[], int *posicao){
+int AtualizarProfessor(professores ListaProfessores[], int *posicao){
     int sair_atualizar,opcao_atualizar,i;
     int ValueMatricula,verificador_sexo,VerificadorMatricula,cpf_valido = 0,data_valido = 0;
     printf("Informe o número de matrícula: ");
@@ -175,7 +175,7 @@ int atualizar_professor(professores ListaProfessores[], int *posicao){
 
                 printf("Nome do Professor: ");
                 fgets(ListaProfessores[i].nome,sizeof(ListaProfessores[i].nome),stdin);
-					 ListaProfessores[ *posicao ].nome[ strcspn ( ListaProfessores[ *posicao ].nome, "\n" ) ] = '\0'; 
+					 ListaProfessores[ i ].nome[ strcspn ( ListaProfessores[ i ].nome, "\n" ) ] = '\0'; 
             break;
 
             case 2:
@@ -204,10 +204,10 @@ int atualizar_professor(professores ListaProfessores[], int *posicao){
                 do{
                   printf("Data de Nascimento (dd/mm/aaaa): ");
                   scanf("%d/%d/%d", 
-                  &ListaProfessores[*posicao].nascimento.dia, 
-                  &ListaProfessores[*posicao].nascimento.mes, 
-                  &ListaProfessores[*posicao].nascimento.ano);
-                  data_valido = validador_data(ListaProfessores[*posicao].nascimento.dia,ListaProfessores[*posicao].nascimento.mes,ListaProfessores[*posicao].nascimento.ano);
+                  &ListaProfessores[i].nascimento.dia, 
+                  &ListaProfessores[i].nascimento.mes, 
+                  &ListaProfessores[i].nascimento.ano);
+                  data_valido = validador_data(ListaProfessores[i].nascimento.dia,ListaProfessores[i].nascimento.mes,ListaProfessores[i].nascimento.ano);
                   limpar_buffer();
                   if (data_valido == 0)
                   {
@@ -220,10 +220,9 @@ int atualizar_professor(professores ListaProfessores[], int *posicao){
                 // CPF
                 do{
                   printf("CPF: ");
-                  fgets(ListaProfessores[*posicao].cpf, sizeof(ListaProfessores[*posicao].cpf), stdin);
-						ListaProfessores[ *posicao ].nome[ strcspn ( ListaProfessores[ *posicao ].nome, "\n" ) ] = '\0'; 
+                  fgets(ListaProfessores[i].cpf, sizeof(ListaProfessores[i].cpf), stdin);
                   limpar_buffer();
-                  cpf_valido = validador_cpf(ListaProfessores[*posicao].cpf);
+                  cpf_valido = validador_cpf(ListaProfessores[i].cpf);
                   if (cpf_valido == 0)
                   {
                     printf("CPF Inválido, tente novamente!.\n");
@@ -243,7 +242,7 @@ int atualizar_professor(professores ListaProfessores[], int *posicao){
         } 
 }
 
-int excluir_professor(professores ListaProfessores[],int *posicao){
+int ExcluirProfessor(professores ListaProfessores[],int *posicao){
     int achou = 0;
     int ValueMatricula,VerificadorMatricula,i,j;
     printf("Informe o número de matrícula: ");
@@ -265,6 +264,7 @@ int excluir_professor(professores ListaProfessores[],int *posicao){
         }
         if(ValueMatricula == 1)
         {
+          achou = 1;
           for (j = i;j < *posicao - 1;j++)
             {
               ListaProfessores[j].matricula =  ListaProfessores[j+1].matricula;
@@ -277,13 +277,14 @@ int excluir_professor(professores ListaProfessores[],int *posicao){
               ListaProfessores[j].ativo = ListaProfessores[j+1].ativo;
             }
             (*posicao)--;
-          achou = 1;
         }
 
     if (achou == 1)
+    {
       printf("Professor excluído com sucesso.\n");
-    else
-      printf("Matrícula inexistente.\n");
+    }
+    Pause();
+    Pause();
 }
 
 void listar_professor_nome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao){
