@@ -147,6 +147,7 @@ int main(int argc,char *argv[]){
 		                     
 		               printf("[5] Sexo...\t[6] Nome\t[7] Idade");
 		               Until( &key, '5', '7' );
+						}
 
 		               switch(key){
 
@@ -154,9 +155,9 @@ int main(int argc,char *argv[]){
 		               case '6': break;
 		               case '7': break;   
 
-		               }
-		                 
+		               
 		             }
+					 	if ( key == '3' ) BuscarPorMatriculaProf( ListaProfessores, posicao );
 		                 
 		             //if( key != '0') ListStudents( amountStudents, registredStudents, MaxStudent, key);
 		                
@@ -183,13 +184,11 @@ int main(int argc,char *argv[]){
              
             	ListStudents( amountStudents, registredStudents, MaxStudent, key);               
                Pause();
-               break;                
-
-			}
-
+               break;               
         	key = '1';
 	    	system("clear||cls");
         
+	}
 	}while(key != '0');
-
+	
 }

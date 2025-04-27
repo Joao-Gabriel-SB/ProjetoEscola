@@ -10,6 +10,6 @@ int ExcluirProfessor(professores ListaProfessores[],int *posicao);
 void listar_professor_nome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao);
 void listar_professor_idade(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao);
 void listar_professor_sexo(professores ListaProfessores[], int *posicao);
-
+void BuscarPorMatriculaPro(professores ListaProfessores[], int posicao);
 
 #endif
