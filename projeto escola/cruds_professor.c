@@ -376,3 +376,7 @@ void listar_professor_sexo(professores ListaProfessores[], int *posicao){
            }
        }
 }
+
+void BuscarPorMatricula(professores ListaProfessores[]){
+  
+}
