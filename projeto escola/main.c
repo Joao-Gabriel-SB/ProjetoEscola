@@ -40,7 +40,7 @@ int main(int argc,char *argv[]){
 			   	printf("\t\t\t%sMENU CADASTRO%s\n\n",bold,reset); Spacer(70);
 			   	printf("[1] Cadastrar\t\t");
             	printf("[2] Atualizar\t\t");
-            	printf("[3] Excluir\t\t");
+            	printf("[3] Excluir\n");
             	StartMenu();
             	Until( &key, '0', '3' );
                 
@@ -64,20 +64,40 @@ int main(int argc,char *argv[]){
 
                     case '2':/*AQUI VAI A FUNÇÃO DE Atualização */ 
 
-								UpdateStudent( &amountStudents, registredStudents, MaxStudent );
-                			Pause();
+								printf("[1] Aluno\t\t");
+								printf("[2] Professor\t\t");
+								printf("[3] Disciplina\t");
+								Until( &key, '1', '3' );
 
-                        break;  
+							  	switch (key){
+
+								case '1': UpdateStudent( &amountStudents, registredStudents, MaxStudent ); Pause(); break;
+
+								case '2': AtualizarProfessor( ListaProfessores,&posicao); Pause(); break;
+								
+								//	case '3': *COLOCAR O CÓDIGO DE NETO!!!!!!!!!!!!!
+							  }
     
+								break;
+
                     case '3':/*AQUI VAI A FUNÇÃO DE Exclusão*/ 
 
- 						  		DeleteStudent( &amountStudents, registredStudents, MaxStudent);
+								printf("[1] Aluno\t\t");
+								printf("[2] Professor\t\t");
+								printf("[3] Disciplina\t");
+								Until( &key, '1', '3' );
 
-	
-								Pause(); 
-                        break;
+								switch (key){
 
-               	} 
+									case '1': DeleteStudent( &amountStudents, registredStudents, MaxStudent); Pause(); break;
+
+									case '2': ExcluirProfessor( ListaProfessores, &posicao ); Pause(); break;
+
+									//	case '3': *COLOCAR O CÓDIGO DE NETO!!!!!!!!!!!!!
+								}
+
+						  break;
+						}
 			    
 		   	break;
 

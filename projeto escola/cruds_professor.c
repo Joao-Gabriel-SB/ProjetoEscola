@@ -160,7 +160,7 @@ int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao
 
 	 printf("\n\n\t\t%sCadastro Realizado com sucesso!!!%s\n", yellow_F, reset);
 
-	 printf("\n\n[1] Cadastrar Outro Professor?\t\t[2] Listar Professores cadastrados\t\t");StartMenu();
+	 printf("\n\n[1] Cadastrar Outro Professor?\t\t[2] Listar Professores cadastrados\t\t\n");StartMenu();
 
 	 	Until( &sair, '0', '2' );
 		            
@@ -178,8 +178,9 @@ int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao
 
 //=============================================================================================================================
 
-int atualizar_professor(professores ListaProfessores[], int *posicao){
-    int sair_atualizar,opcao_atualizar,i;
+int AtualizarProfessor(professores ListaProfessores[], int *posicao){
+    int sair_atualizar,i;
+	 char opcao_atualizar;
     int ValueMatricula,verificador_sexo,VerificadorMatricula,cpf_valido = 0,data_valido = 0;
     printf("Informe o número de matrícula: ");
     scanf("%d",&VerificadorMatricula);
@@ -202,20 +203,26 @@ int atualizar_professor(professores ListaProfessores[], int *posicao){
       {
         while (sair_atualizar!=5)
             {  
-                printf("O que deseja atualizar? 1 - Nome ----------- 2 - Sexo ----------- 3 - Data Nascimento ----------- 4 - CPF ----------- 5 - Voltar para o Menu");
-                scanf("%d",&opcao_atualizar);
-                fflush(stdin);
-                limpar_buffer();
+					system("clear||cls");
+					printf("\t\t\tAtualização:\n");
+					Spacer(75);
+					printf("[1] Nome\t\t");
+					printf("[2] Sexo\t\t");
+					printf("[3] Nascimento\n");
+					printf("[4] CPF\t\t\t");
+					StartMenu();
+               Until(&opcao_atualizar, '0', '4');
+               
 
         switch (opcao_atualizar){
-            case 1:
+            case '1':
 
                 printf("Nome do Professor: ");
                 fgets(ListaProfessores[i].nome,sizeof(ListaProfessores[i].nome),stdin);
 					 ListaProfessores[ *posicao ].nome[ strcspn ( ListaProfessores[ *posicao ].nome, "\n" ) ] = '\0'; 
             break;
 
-            case 2:
+            case '2':
                printf("Sexo (M/F): ");
                verificador_sexo = 1;
                while (verificador_sexo == 1)
@@ -236,7 +243,7 @@ int atualizar_professor(professores ListaProfessores[], int *posicao){
                 }
             break;
 
-            case 3:
+            case '3':
                 // Data de nascimento
                 do{
                   printf("Data de Nascimento (dd/mm/aaaa): ");
@@ -253,7 +260,7 @@ int atualizar_professor(professores ListaProfessores[], int *posicao){
                 }while(data_valido == 0);
             break;
 
-            case 4:        
+            case '4':        
                 // CPF
                 do{
                   printf("CPF: ");
@@ -268,19 +275,16 @@ int atualizar_professor(professores ListaProfessores[], int *posicao){
                 }while(cpf_valido == 0);           
             break;
 
-            case 5:
+            case '0':
                 sair_atualizar = 5;
             break;                              
 
-            default:
-                printf("Opção Inválida.\n");
-            break;
                 }
             }
         } 
 }
 
-int excluir_professor(professores ListaProfessores[],int *posicao){
+int ExcluirProfessor(professores ListaProfessores[],int *posicao){
     int achou = 0;
     int ValueMatricula,VerificadorMatricula,i,j;
     printf("Informe o número de matrícula: ");
