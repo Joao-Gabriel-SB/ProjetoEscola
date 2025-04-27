@@ -1,18 +1,16 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <locale.h>
-#include "resources.h"
 #include "database.h"
+#include "resources.h"
 #include "utils.h"
 #include "cruds.h"
 #include "cruds_professor.h"
+#include "Disciplinas.h"
 
 
-int main(int argc,char *argv[]){
+int main(){
 
    setlocale(LC_ALL,"Portuguese");
 
-   int opcao,sair = 1;
+   int opcao, sair = 1;
    char key;
           
 	system("clear||cls");
@@ -28,7 +26,7 @@ int main(int argc,char *argv[]){
       printf("[4] Menu disciplina\t\t");
       printf("[5] Pesquisar\t\t");
       printf("%s[0] Sair\t%s", yellow_F, reset);
-		AnswerField(&key);
+		Until(&key, '0', '5');
 		system("clear||cls");
 
       if( key == '0' ) break;        
@@ -40,7 +38,7 @@ int main(int argc,char *argv[]){
 			   	printf("\t\t\t%sMENU CADASTRO%s\n\n",bold,reset); Spacer(70);
 			   	printf("[1] Cadastrar\t\t");
             	printf("[2] Atualizar\t\t");
-            	printf("[3] Excluir\t\t");
+            	printf("[3] Excluir\n");
             	StartMenu();
             	Until( &key, '0', '3' );
                 
@@ -57,40 +55,47 @@ int main(int argc,char *argv[]){
 
 			                  	case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent, &idCounter ); break;
                            	case '5': CadastrarProfessor( ListaProfessores, MaxProfessor ,&posicao, &IncrementadorMatricula ); break;
-                           	case '6':/*AQUI VAI A FUNÇÃO DE CADASTRO DE PROFESSORES DE NETO */ break;
+                           	case '6': cadastrar_disciplina(&qtd_disciplina); Pause(); break;
 			                  }                               
                             
                     break;
 
-                    case '2':/*AQUI VAI A FUNÇÃO DE Atualização */
-						printf("[1] Aluno\t\t");
-						printf("[2] Professor\t\t");
-						printf("[3] Disciplina\t");
-						Until( &key, '1', '3' );
-							  switch (key){
-								case '1': UpdateStudent( &amountStudents, registredStudents, MaxStudent );
-								Pause();break;
-								case '2': AtualizarProfessor( ListaProfessores,&posicao);break;
-							//	case '3': *COLOCAR O CÓDIGO DE NETO!!!!!!!!!!!!!
-							  }
-							  
-								
-                        break;  
-    
-                    case '3':/*AQUI VAI A FUNÇÃO DE Exclusão*/ 
-					printf("[1] Aluno\t\t");
-					printf("[2] Professor\t\t");
-					printf("[3] Disciplina\t");
-					Until( &key, '1', '3' );
-					switch (key){
-						case '1': DeleteStudent( &amountStudents, registredStudents, MaxStudent);
-						Pause(); break;
-						case '2': ExcluirProfessor( ListaProfessores, &posicao );break;
-					//	case '3': *COLOCAR O CÓDIGO DE NETO!!!!!!!!!!!!!
-					  }
-                    break;
+                    case '2':/*AQUI VAI A FUNÇÃO DE Atualização */ 
 
-               	} 
+								printf("[1] Aluno\t\t");
+								printf("[2] Professor\t\t");
+								printf("[3] Disciplina\t");
+								Until( &key, '1', '3' );
+
+							  	switch (key){
+
+								case '1': UpdateStudent( &amountStudents, registredStudents, MaxStudent ); Pause(); break;
+
+								case '2': AtualizarProfessor( ListaProfessores,&posicao); Pause(); break;
+								
+								case '3': atualizar_disciplina(&qtd_disciplina); Pause(); break;
+							  }
+    
+								break;
+
+                    case '3':/*AQUI VAI A FUNÇÃO DE Exclusão*/ 
+
+								printf("[1] Aluno\t\t");
+								printf("[2] Professor\t\t");
+								printf("[3] Disciplina\t");
+								Until( &key, '1', '3' );
+
+								switch (key){
+
+									case '1': DeleteStudent( &amountStudents, registredStudents, MaxStudent); Pause(); break;
+
+									case '2': ExcluirProfessor( ListaProfessores, &posicao ); Pause(); break;
+
+									case '3': excluir_disciplina(&qtd_disciplina); Pause(); break;
+								}
+
+						  break;
+						}
 			    
 		   	break;
 
@@ -147,17 +152,16 @@ int main(int argc,char *argv[]){
 		                     
 		               printf("[5] Sexo...\t[6] Nome\t[7] Idade");
 		               Until( &key, '5', '7' );
-						}
 
 		               switch(key){
 
-		               case '5': printf("\n[8] Homem\t\t [9] Mulher"); Until( &key, '8', '9' ); break;
-		               case '6': break;
-		               case '7': break;   
+		               case '5': printf("\n[8] Homem\t\t [9] Mulher"); Until( &key, '8', '9' ); ListarProfessorSexo( ListaProfessores, &posicao, key); break;
+		               case '6': ListarProfessorNome( ListaProfessores, CopiaProfessores, aux_struct, &posicao ); break;
+		               case '7': ListarProfessorIdade( ListaProfessores, CopiaProfessores, aux_struct, &posicao ); break;   
 
-		               
+		               }
+		                 
 		             }
-					 	if ( key == '3' ) BuscarPorMatriculaProf( ListaProfessores, posicao );
 		                 
 		             //if( key != '0') ListStudents( amountStudents, registredStudents, MaxStudent, key);
 		                
@@ -172,11 +176,21 @@ int main(int argc,char *argv[]){
 
 		    	case '4':
 
-			   	printf("\t\t%sMENU DISCIPLINAS%s\n\n",bold,reset);
-			   	printf("[1] Listar disciplinas\t");
-               printf("[2] Em Breve...");
+			   	printf("\t\t\t\t\t%sMENU DISCIPLINAS%s\n\n",bold,reset);
+				Spacer(105);
+			   	printf("\n[1] Listar disciplinas\t\t");
+               	printf("[2] Incluir Aluno na Disciplina\t\t");
+				printf("[3] Excluir Aluno da Disciplina\n");
 			    	StartMenu();
-               AnswerField(&key);
+               Until(&key, '0', '3');
+
+			   switch(key){
+
+					case '1': listar_disciplina(&qtd_disciplina); Pause(); break;
+					case '2': IncluirAlunosDisciplina( &lista_disciplinas, &qtd_disciplina, AuxMatricula ); Pause(); break;
+
+
+			   }
 
 			   break;
 
@@ -184,11 +198,13 @@ int main(int argc,char *argv[]){
              
             	ListStudents( amountStudents, registredStudents, MaxStudent, key);               
                Pause();
-               break;               
+               break;                
+
+			}
+
         	key = '1';
 	    	system("clear||cls");
         
-	}
 	}while(key != '0');
-	
-}
+
+} 	

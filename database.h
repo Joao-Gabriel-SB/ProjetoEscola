@@ -1,5 +1,10 @@
 #ifndef DATABASE_H
 #define DATABASE_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
 //Alunos==============================================================================================================
 
 #define MaxStudent 3
@@ -51,5 +56,25 @@ int posicao = 0;
 int IncrementadorMatricula = 202542000;
 
 // Disciplinas =====================================================================================================================
+
+#define TAM_DISCIPLINAS 5
+#define MAX_ALUNOS_DISCIPLINA 20
+
+
+typedef struct{
+    char nome[StrSizeMax];
+    char codigo[StrSizeMax];
+    int semestre;
+    char professor[StrSizeMax];
+    int ativo;
+    int AlunosMatriculados[MAX_ALUNOS_DISCIPLINA];
+    int qtd_alunos;
+  } disciplina;
+  
+extern disciplina lista_disciplinas[TAM_DISCIPLINAS];
+
+disciplina lista_disciplinas[TAM_DISCIPLINAS];
+
+int qtd_disciplina=0;
 
 #endif

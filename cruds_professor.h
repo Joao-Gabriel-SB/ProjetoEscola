@@ -7,9 +7,9 @@ int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao
 void ListarProfessor( professores ListaProfessores[], int posicao );
 int AtualizarProfessor(professores ListaProfessores[], int *posicao);
 int ExcluirProfessor(professores ListaProfessores[],int *posicao);
-void listar_professor_nome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao);
-void listar_professor_idade(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao);
-void listar_professor_sexo(professores ListaProfessores[], int *posicao);
-void BuscarPorMatriculaPro(professores ListaProfessores[], int posicao);
+void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao);
+void ListarProfessorIdade(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao);
+void ListarProfessorSexo(professores ListaProfessores[], int *posicao, char key);
+
 
 #endif

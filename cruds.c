@@ -150,6 +150,7 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
 				system("clear||cls");
 				printf("\t\t\t%sCadastrando Aluno%s\n\n", bold, reset);
 				Spacer(75);
+
 		        printf("\nNome do aluno:\t\t\t");
 		        scanf(" %[^\n]",registredStudents[*amountStudents].name);
 
