@@ -1,14 +1,11 @@
-#ifndef cruds_h
-#define cruds_h
-#include "database.h"
+#ifndef CRUDS_H
+#define CRUDS_H
 
-int cadastrar_professor(professores ListaProfessores[], int *posicao, int *IncrementadorMatricula, int limite);
-void listar_professor(professores ListaProfessores[], int *posicao);
-int atualizar_professor(professores ListaProfessores[], int *posicao);
-int excluir_professor(professores ListaProfessores[],int *posicao);
-void listar_professor_nome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao);
-void listar_professor_idade(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao);
-void listar_professor_sexo(professores ListaProfessores[], int *posicao);
+#include "cruds.c"
 
+int ListStudents(int amountStudents, Student* registredStudents, const int ArraySize, char key);
+int InsertStudent( int* amountStudents, Student* registredStudents, const int ArraySize, int* idCounter  );
+int UpdateStudent( int* amountStudents, Student* registredStudents, const int ArraySize );
+int DeleteStudent( int* amountStudents, Student* registredStudents, const int ArraySize );
 
 #endif

@@ -1,9 +1,34 @@
-#ifndef database_h
-#define database_h
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef DATABASE_H
+#define DATABASE_H
+//Alunos==============================================================================================================
 
-#define TAM 3
+#define MaxStudent 3
+#define StrSizeMax 100
+
+typedef struct{
+        int day;
+        int month;
+        int year;
+}StructBirth;
+
+typedef struct {
+        char         name[StrSizeMax];
+        StructBirth  birthday;
+        char         sex;
+        char         cpf[12];
+        int          id;
+}Student;
+
+Student registredStudents[MaxStudent]; 
+//Student copy[MaxStudent];
+int amountStudents;
+int idCounter = 202521001;
+
+
+
+// Professores ====================================================================================================================
+
+#define MaxProfessor 3
 
 typedef struct{
 int dia;
@@ -20,5 +45,11 @@ struct_nascimento nascimento;
 char cpf[12];  
 int ativo;
 }professores;
+
+professores ListaProfessores[MaxProfessor], CopiaProfessores[MaxProfessor], aux_struct;
+int posicao = 0;
+int IncrementadorMatricula = 202542000;
+
+// Disciplinas =====================================================================================================================
 
 #endif
