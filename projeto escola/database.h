@@ -34,7 +34,7 @@ typedef struct {
 
 }Student;
 
-Student registredStudents[MaxStudent]; 
+Student registredStudents[MaxStudent] = {0}; 
 //Student copy[MaxStudent];
 int amountStudents;
 int idCounter = 202521001;
@@ -87,7 +87,7 @@ typedef struct{
 
 extern disciplina lista_disciplinas[TAM_DISCIPLINAS];
 
-disciplina lista_disciplinas[TAM_DISCIPLINAS];
+disciplina lista_disciplinas[TAM_DISCIPLINAS] = {0};
 
 int qtd_disciplina=0;
 

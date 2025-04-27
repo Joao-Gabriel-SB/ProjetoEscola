@@ -34,7 +34,7 @@ void cadastrar_disciplina( int *qtd_disciplina, int amountStudents, Student* reg
                 printf("\nDigite o nome da disciplina: \t\t");
                 scanf(" %[^\n]",lista_disciplinas[*qtd_disciplina].nome);
 
-                printf("Digite o código da disciplina: \t");
+                printf("Digite o código da disciplina: \t\t");
                 scanf(" %[^\n]",lista_disciplinas[*qtd_disciplina].codigo);
                 for (int i = 0; lista_disciplinas[*qtd_disciplina].codigo[i] != '\0'; i++) {
                     lista_disciplinas[*qtd_disciplina].codigo[i] = toupper(lista_disciplinas[*qtd_disciplina].codigo[i]);
@@ -198,7 +198,7 @@ void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student*
 
 	 ListStudents( amountStudents, registredStudents, MaxStudent, '1' );
 
-	 printf("\n\n Matricula do estudante:\t");
+	 printf("\n\nMatricula do estudante:\t");
 	 scanf(" %d", &auxMatricula);
 
 	 indexAluno = SearchInt( amountStudents, registredStudents, sizeof(Student), GetId, auxMatricula );
@@ -215,7 +215,7 @@ void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student*
 
 
 	 printf("\n\nNome:\t\t%s",registredStudents[indexAluno].name);
-	 printf("\n Nascimento:\t\t%02d/%02d/%d\n", registredStudents[indexAluno].birthday.day, registredStudents[indexAluno].birthday.month, registredStudents[indexAluno].birthday.year);
+	 printf("\nNascimento:\t%02d/%02d/%d", registredStudents[indexAluno].birthday.day, registredStudents[indexAluno].birthday.month, registredStudents[indexAluno].birthday.year);
 	 registredStudents[indexAluno].sex == 'M' ? printf("\nSexo:\t\tMasculino\n"): printf("\nsexo:\t\tFeminino\n");
     printf("Cpf:\t\t");
 
@@ -273,15 +273,18 @@ void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student*
 
     }
         
-				lista_disciplinas[ indexDisciplina ].alunos[ lista_disciplinas[indexDisciplina].qtd_alunos ] = registredStudents[indexAluno];	 	 
- 				strcpy( registredStudents[ indexAluno ].disciplinasCadastrado[ registredStudents[indexAluno].qtdDisciplinas ] , lista_disciplinas[ indexDisciplina ].cod_incluir );
-           
-			
+		lista_disciplinas[ indexDisciplina ].alunos[ lista_disciplinas[indexDisciplina].qtd_alunos ] = registredStudents[indexAluno];	 	 
+		strcpy( registredStudents[ indexAluno ].disciplinasCadastrado[ registredStudents[indexAluno].qtdDisciplinas ] , lista_disciplinas[ indexDisciplina ].codigo );
+				     
+		printf("Aluno %s agora está matriculado em %d disciplina(s)\n",
+		registredStudents[indexAluno].name,
+		registredStudents[indexAluno].qtdDisciplinas);
 
-				registredStudents[indexAluno].qtdDisciplinas++;
-            lista_disciplinas[indexDisciplina].qtd_alunos++;
 
-            printf("Aluno incluído com sucesso.\n\n");
+		registredStudents[indexAluno].qtdDisciplinas++;
+		lista_disciplinas[indexDisciplina].qtd_alunos++;
+
+      printf("\n\t\tAluno incluído com sucesso.\n\n");
      
 	Pause();
 }
