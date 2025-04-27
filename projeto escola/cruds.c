@@ -24,7 +24,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
         if( amountStudents == 0 ) {
             printf("\n\t\t\t\t\t%sNenhum aluno Matriculado.%s\n\n\n",yellow_F,reset);
             Pause();
-            return -1;
+            return 0;
         }
         
         switch (key){
@@ -57,7 +57,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
 				if( amountStudents == 0 ){
 
                     printf("\n\t\t\t\t%sNenhum aluno encontrado.%s\n", yellow_F, reset);
-					Pause();
+						  Pause();
                     return -1;
                 }
 
@@ -116,7 +116,9 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
 
                     }
 
-                printf("\nMatricula:\t%d\t\n\n",copy[i].id);
+                printf("\nMatricula:\t%d\t",copy[i].id);
+					
+					 printf("\nDisciplinas:\t%s\t",copy[i].disciplinasCadastrado[i]);
                 
                 if(key == '3'){
 					Pause();
@@ -197,14 +199,13 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
 int UpdateStudent( int* amountStudents, Student* registredStudents, const int ArraySize ){
 
 		int position;
-		int sucess;
+		int sucess;		
+
+		printf("\t\t\t%sDados Atuais:%s\n", bold, reset );
 		
-		sucess = ListStudents( *amountStudents, registredStudents, ArraySize, '3');
-		
+		sucess = ListStudents( *amountStudents, registredStudents, ArraySize, '3');		
 
 		if ( sucess != -1 ){
-
-		//printf("\t\t\t%sDados Atuais:%s\n", bold, reset );
 
 		printf("Novo nome:\t"); scanf(" %[^\n]",registredStudents[sucess].name);
 
