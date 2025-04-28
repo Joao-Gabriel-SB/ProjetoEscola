@@ -50,7 +50,7 @@ void ListarProfessor( professores ListaProfessores[], int posicao ){
 
 }
 
-//=======================================================================================================================
+//===================================================================================================================================================================
 
 int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao, int *IncrementadorMatricula ) {
 
@@ -491,3 +491,41 @@ void ListarProfessorSexo(professores ListaProfessores[], int *posicao, char key)
 	
 	Pause();
 }
+
+//==================================================================================================================================================================
+
+int SearchCharProf( professores* vetIn, const int tamVetIn, professores* vetOut, const int tamVetOut, char* strDesejada, int tamStrDesejada ){
+
+   int qtdProfessoresLocal = 0;
+
+	professores copyVetIn[tamVetIn];
+	for( int i = 0; i < tamVetIn; i++ )
+		ToLower( copyVetIn[i].nome, vetIn[i].nome, tamVetIn );
+
+		ToLower( strDesejada, strDesejada, tamStrDesejada );
+    
+    for( int i = 0; i < tamVetIn; i++ ){
+
+
+        if( strncmp( copyVetIn[i].nome, strDesejada, tamStrDesejada ) == 0 ) {   
+
+            vetOut[qtdProfessoresLocal] = vetIn[i];
+            qtdProfessoresLocal++;
+            
+        }
+       
+    }
+
+    return qtdProfessoresLocal;
+
+}
+
+
+
+
+
+
+
+
+
+

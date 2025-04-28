@@ -196,7 +196,7 @@ int main(){
 
             case '5':
              
-            	ListStudents( amountStudents, registredStudents, MaxStudent, key);               
+            	ListarPessoas( amountStudents, registredStudents, ListaProfessores, posicao, MaxStudent );              
                Pause();
                break;                
 
