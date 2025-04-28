@@ -57,7 +57,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
 				if( amountStudents == 0 ){
 
                     printf("\n\t\t\t\t%sNenhum aluno encontrado.%s\n", yellow_F, reset);
-					Pause();
+						  Pause();
                     return -1;
                 }
 
@@ -93,6 +93,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
             
             if( sex == '0' || (sex == '1' && copy[i].sex == 'M') || (sex == '2' && copy[i].sex == 'F')){ // separa por sexo
 
+					 putchar('\n');
                 Spacer(75);
 
 
@@ -115,13 +116,18 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
                         printf("%c",copy[i].cpf[a]);
 
                     }
+					
+                printf("\nMatricula:\t%d\t",copy[i].id);
 
-                printf("\nMatricula:\t%d\t\n\n",copy[i].id);
+					printf("\nDisciplinas:\t");
+					for(int j = 0; j<copy[i].qtdDisciplinas; j++)
+					 	printf("%s, ",copy[i].disciplinasCadastrado[j] );
                 
+						
                 if(key == '3'){
-					Pause();
-					return i;
-				}
+						Pause();
+						return i;
+					 }
             }
         }
       Pause();

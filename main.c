@@ -55,7 +55,7 @@ int main(){
 
 			                  	case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent, &idCounter ); break;
                            	case '5': CadastrarProfessor( ListaProfessores, MaxProfessor ,&posicao, &IncrementadorMatricula ); break;
-                           	case '6': cadastrar_disciplina(&qtd_disciplina); Pause(); break;
+                           	case '6': cadastrar_disciplina(&qtd_disciplina, amountStudents, registredStudents); Pause(); break;
 			                  }                               
                             
                     break;
@@ -187,7 +187,7 @@ int main(){
 			   switch(key){
 
 					case '1': listar_disciplina(&qtd_disciplina); Pause(); break;
-					case '2': IncluirAlunosDisciplina( &lista_disciplinas, &qtd_disciplina, AuxMatricula ); Pause(); break;
+					case '2': incluir_aluno_disciplina(&qtd_disciplina, amountStudents, registredStudents); Pause(); break;
 
 
 			   }
