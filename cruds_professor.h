@@ -10,6 +10,7 @@ int ExcluirProfessor(professores ListaProfessores[],int *posicao);
 void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao);
 void ListarProfessorIdade(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao);
 void ListarProfessorSexo(professores ListaProfessores[], int *posicao, char key);
+void BuscarPorMatriculaProf(professores ListaProfessores[], int posicao);
 
 
 #endif

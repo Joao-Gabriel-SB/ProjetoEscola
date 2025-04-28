@@ -68,7 +68,7 @@ void listar_disciplina(int *qtd_disciplina){
         printf("\t\t\tLista de Disciplinas\n\n");
         for (int i = 0; i < *qtd_disciplina;i++){
             if(lista_disciplinas[i].ativo)
-            printf("%d - %s\n",i+1,lista_disciplinas[i].nome);
+            	printf("%d - %s\n",i+1,lista_disciplinas[i].nome);
         }
         printf("\n");
     }
