@@ -1,12 +1,14 @@
-#include "database.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
 #include "resources.h"
+#include "database.h"
 #include "utils.h"
 #include "cruds.h"
 #include "cruds_professor.h"
-#include "Disciplinas.h"
 
 
-int main(){
+int main(int argc,char *argv[]){
 
    setlocale(LC_ALL,"Portuguese");
 
@@ -55,7 +57,7 @@ int main(){
 
 			                  	case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent, &idCounter ); break;
                            	case '5': CadastrarProfessor( ListaProfessores, MaxProfessor ,&posicao, &IncrementadorMatricula ); break;
-                           	case '6': cadastrar_disciplina(&qtd_disciplina, amountStudents, registredStudents); Pause(); break;
+                           	case '6':/*AQUI VAI A FUNÇÃO DE CADASTRO DE PROFESSORES DE NETO */ break;
 			                  }                               
                             
                     break;
@@ -73,7 +75,7 @@ int main(){
 
 								case '2': AtualizarProfessor( ListaProfessores,&posicao); Pause(); break;
 								
-								case '3': atualizar_disciplina(&qtd_disciplina); Pause(); break;
+								//	case '3': *COLOCAR O CÓDIGO DE NETO!!!!!!!!!!!!!
 							  }
     
 								break;
@@ -91,7 +93,7 @@ int main(){
 
 									case '2': ExcluirProfessor( ListaProfessores, &posicao ); Pause(); break;
 
-									case '3': excluir_disciplina(&qtd_disciplina); Pause(); break;
+									//	case '3': *COLOCAR O CÓDIGO DE NETO!!!!!!!!!!!!!
 								}
 
 						  break;
@@ -162,9 +164,8 @@ int main(){
 		               }
 		                 
 		             }
-		                 
-		             //if( key != '0') ListStudents( amountStudents, registredStudents, MaxStudent, key);
-		                
+					if (key == '3') BuscarPorMatriculaProf ( ListaProfessores, posicao );
+		                                 
 		             Pause();
 		             system("clear||cls");
 
@@ -176,27 +177,17 @@ int main(){
 
 		    	case '4':
 
-			   	printf("\t\t\t\t\t%sMENU DISCIPLINAS%s\n\n",bold,reset);
-				Spacer(105);
-			   	printf("\n[1] Listar disciplinas\t\t");
-               	printf("[2] Incluir Aluno na Disciplina\t\t");
-				printf("[3] Excluir Aluno da Disciplina\n");
+			   	printf("\t\t%sMENU DISCIPLINAS%s\n\n",bold,reset);
+			   	printf("[1] Listar disciplinas\t");
+               printf("[2] Em Breve...");
 			    	StartMenu();
                Until(&key, '0', '3');
-
-			   switch(key){
-
-					case '1': listar_disciplina(&qtd_disciplina); Pause(); break;
-					case '2': incluir_aluno_disciplina(&qtd_disciplina, amountStudents, registredStudents); Pause(); break;
-
-
-			   }
 
 			   break;
 
             case '5':
              
-            	ListarPessoas( amountStudents, registredStudents, ListaProfessores, posicao, MaxStudent );              
+            	ListStudents( amountStudents, registredStudents, MaxStudent, key);               
                Pause();
                break;                
 

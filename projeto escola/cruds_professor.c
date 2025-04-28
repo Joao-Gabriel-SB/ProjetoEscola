@@ -50,7 +50,7 @@ void ListarProfessor( professores ListaProfessores[], int posicao ){
 
 }
 
-//===================================================================================================================================================================
+//=======================================================================================================================
 
 int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao, int *IncrementadorMatricula ) {
 
@@ -492,40 +492,53 @@ void ListarProfessorSexo(professores ListaProfessores[], int *posicao, char key)
 	Pause();
 }
 
-//==================================================================================================================================================================
 
-int SearchCharProf( professores* vetIn, const int tamVetIn, professores* vetOut, const int tamVetOut, char* strDesejada, int tamStrDesejada ){
+void BuscarPorMatriculaProf(professores ListaProfessores[], int posicao){
+  int achou = 0;
+  int ValueMatricula,VerificadorMatricula,i;
+  printf("Informe o número de matrícula: ");
+  scanf("%d",&VerificadorMatricula);
+  ValueMatricula = 0;
 
-   int qtdProfessoresLocal = 0;
-
-	professores copyVetIn[tamVetIn];
-	for( int i = 0; i < tamVetIn; i++ )
-		ToLower( copyVetIn[i].nome, vetIn[i].nome, tamVetIn );
-
-		ToLower( strDesejada, strDesejada, tamStrDesejada );
-    
-    for( int i = 0; i < tamVetIn; i++ ){
-
-
-        if( strncmp( copyVetIn[i].nome, strDesejada, tamStrDesejada ) == 0 ) {   
-
-            vetOut[qtdProfessoresLocal] = vetIn[i];
-            qtdProfessoresLocal++;
-            
+  for(i=0; i <= posicao;i++) // exclusao lógica (inativando usuário)
+      {
+        if(ListaProfessores[i].matricula == VerificadorMatricula)
+          {
+            ValueMatricula = 1;
+            break;
+          }
         }
-       
-    }
+  if(ValueMatricula == 1)
+  {
+    Spacer(75);
+			
+			printf("\n\nNome:\t\t%s\n",ListaProfessores[i].nome);
 
-    return qtdProfessoresLocal;
+			printf("Nascimento:\t%02d/%02d/%d\n",ListaProfessores[i].nascimento.dia,ListaProfessores[i].nascimento.mes,ListaProfessores[i].nascimento.ano );
 
-}
+			ListaProfessores[i].sexo == 'M' ? printf("Sexo:\t\tMasculino\n") : printf("sexo:\t\tFeminino\n");
 
+			printf("Cpf:\t\t");
 
+         	for(char a = 0; a<11;a++){
 
+            	if(a == 3 || a == 6)
+               	printf(".");
+                  if(a == 9)
 
+                  	printf("-");
 
+                    printf("%c",ListaProfessores[i].cpf[a]);
 
+         	}
 
-
-
+			printf("\nMatricula:\t%d\t\n\n",ListaProfessores[i].matricula );
+         
+   }
+   else
+   {
+    printf("Não existe professor cadastrado com a matrícula digitada.\n");
+   }
+	Pause();
+  }
 
