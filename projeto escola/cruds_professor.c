@@ -42,15 +42,16 @@ void ListarProfessor( professores ListaProfessores[], int posicao ){
 
          	}
 
-			printf("\nMatricula:\t%d\t\n\n",ListaProfessores[i].matricula );
-         
-        }
+			printf("\nMatricula:\t%d\t\n",ListaProfessores[i].matricula );
+      // printf("\nCódigo Disciplina:\t%s\t\n\n",ListaProfessores[i].ProfessoresDisciplina[i].codigo);
+      // PARA PRINTAR MAIS DE UMA DISCIPLINA NECESSÁRIO COLOCAR MAIS UM FOR PARA RODAR.
+    }
 
 	Pause();
 
 }
 
-//=======================================================================================================================
+//===================================================================================================================================================================
 
 int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao, int *IncrementadorMatricula ) {
 
@@ -327,19 +328,19 @@ int ExcluirProfessor(professores ListaProfessores[],int *posicao){
       printf("Matrícula inexistente.\n");
 }
 
-void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao){
+void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int posicao){
 
     int i,j;
     int comparador;
 
-    for(i=0;i < *posicao; i++)
+    for(i=0;i < posicao; i++)
         {
             CopiaProfessores[i] = ListaProfessores[i]; 
         }
 
     // iniciando o processo de comparação dos nomes p/ verificar o menor e colocar em ordem
-    for( i=0;i < *posicao;i++ ){
-            for(j=i + 1;j < *posicao;j++)
+    for( i=0;i < posicao;i++ ){
+            for(j=i + 1;j < posicao;j++)
               {
                 comparador = strcmp(CopiaProfessores[i].nome,CopiaProfessores[j].nome);
                 if (comparador > 0)
@@ -351,7 +352,7 @@ void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfess
               }
           }
         //Listando todos os professores cadastrados no sistema ordenados por nome
-        for(i=0;i < *posicao;i++)
+        for(i=0;i < posicao;i++)
         {
 
 				Spacer(75);
@@ -491,3 +492,85 @@ void ListarProfessorSexo(professores ListaProfessores[], int *posicao, char key)
 	
 	Pause();
 }
+
+//==================================================================================================================================================================
+
+int SearchCharProf( professores* vetIn, const int tamVetIn, professores* vetOut, const int tamVetOut, char* strDesejada, int tamStrDesejada ){
+
+   int qtdProfessoresLocal = 0;
+
+	professores copyVetIn[tamVetIn];
+	for( int i = 0; i < tamVetIn; i++ )
+		ToLower( copyVetIn[i].nome, vetIn[i].nome, tamVetIn );
+
+		ToLower( strDesejada, strDesejada, tamStrDesejada );
+    
+    for( int i = 0; i < tamVetIn; i++ ){
+
+
+        if( strncmp( copyVetIn[i].nome, strDesejada, tamStrDesejada ) == 0 ) {   
+
+            vetOut[qtdProfessoresLocal] = vetIn[i];
+            qtdProfessoresLocal++;
+            
+        }
+       
+    }
+
+    return qtdProfessoresLocal;
+
+}
+
+//==================================================================================================================================================================
+
+void BuscarPorMatriculaProf(professores ListaProfessores[], int posicao){
+  int achou = 0;
+  int ValueMatricula,VerificadorMatricula,i;
+  printf("Informe o número de matrícula do Professor: ");
+  scanf("%d",&VerificadorMatricula);
+  ValueMatricula = 0;
+
+  for(i=0; i <= posicao;i++) // exclusao lógica (inativando usuário)
+      {
+        if(ListaProfessores[i].matricula == VerificadorMatricula)
+          {
+            ValueMatricula = 1;
+            break;
+          }
+        }
+  if(ValueMatricula == 1)
+  {
+    Spacer(75);
+			
+			printf("\n\nNome:\t\t%s\n",ListaProfessores[i].nome);
+
+			printf("Nascimento:\t%02d/%02d/%d\n",ListaProfessores[i].nascimento.dia,ListaProfessores[i].nascimento.mes,ListaProfessores[i].nascimento.ano );
+
+			ListaProfessores[i].sexo == 'M' ? printf("Sexo:\t\tMasculino\n") : printf("sexo:\t\tFeminino\n");
+
+			printf("Cpf:\t\t");
+
+         	for(char a = 0; a<11;a++){
+
+            	if(a == 3 || a == 6)
+               	printf(".");
+                  if(a == 9)
+
+                  	printf("-");
+
+                    printf("%c",ListaProfessores[i].cpf[a]);
+
+         	}
+
+			printf("\nMatricula:\t%d\t\n\n",ListaProfessores[i].matricula );
+         
+   }
+   else
+   {
+    printf("Não existe professor cadastrado com a matrícula digitada.\n");
+    //falta decrementar caso a pessoa cadastre e erre a matrícula do professor
+   }
+	Pause();
+  }
+
+  

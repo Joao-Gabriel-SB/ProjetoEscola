@@ -4,7 +4,7 @@
 #include "resources.h"
 #include "database.h"
 #include "utils.h"
-
+#include "cruds_professor.h"
 
 //==========================================================================================================================================================================================
 
@@ -47,22 +47,6 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
 
                 break;
 
-            case '5': 
-
-                printf("Pesquisar:\t");
-                scanf(" %[^\n]",search);
-
-                amountStudents = SearchChar( registredStudents, amountStudents, copy, ArraySize, search, strlen(search));
-
-				if( amountStudents == 0 ){
-
-                    printf("\n\t\t\t\t%sNenhum aluno encontrado.%s\n", yellow_F, reset);
-					Pause();
-                    return -1;
-                }
-
-                break;
-
 
             case '6': 
 
@@ -93,6 +77,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
             
             if( sex == '0' || (sex == '1' && copy[i].sex == 'M') || (sex == '2' && copy[i].sex == 'F')){ // separa por sexo
 
+					 putchar('\n');
                 Spacer(75);
 
 
@@ -115,19 +100,55 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
                         printf("%c",copy[i].cpf[a]);
 
                     }
+					
+                printf("\nMatricula:\t%d\t",copy[i].id);
 
-                printf("\nMatricula:\t%d\t\n\n",copy[i].id);
+					printf("\nDisciplinas:\t");
+					for(int j = 0; j<copy[i].qtdDisciplinas; j++)
+					 	printf("%s, ",copy[i].disciplinasCadastrado[j] );
                 
+						
                 if(key == '3'){
-					Pause();
-					return i;
-				}
+						Pause();
+						return i;
+					 }
             }
         }
       Pause();
 		return 0;
 }
 
+//======================================================================================================================================
+
+
+int ListarPessoas( int amountStudents, Student* registredStudents, professores* ListaProfessores, int posicao, int ArraySize ){
+
+   char search[StrSizeMax];
+	printf("Pesquisar:\t");
+	scanf(" %[^\n]",search);
+
+	Student copyStd[ArraySize];
+	professores copyProf[ArraySize];
+
+   for(int j = 0; j < ArraySize; j++ )
+   	copyStd[j] = registredStudents[j];
+
+	amountStudents = SearchChar( registredStudents, amountStudents, copyStd, ArraySize, search, strlen(search));
+
+	ListStudents( amountStudents, registredStudents, MaxStudent, '1');
+
+	posicao = SearchCharProf( ListaProfessores, posicao, copyProf, ArraySize, search, strlen(search) );
+
+	ListarProfessor( copyProf, posicao );
+
+	if( amountStudents == 0 && posicao == 0){
+
+		printf("\n\t\t\t\t%sNinguém foi encontrado.%s\n", yellow_F, reset);
+		Pause();
+		return -1;
+	}
+
+}
 
 //==========================================================================================================================================================================================
 
