@@ -55,7 +55,8 @@ int main(){
 
 			                  	case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent, &idCounter ); break;
                            	case '5': CadastrarProfessor( ListaProfessores, MaxProfessor ,&posicao, &IncrementadorMatricula ); break;
-                           	case '6': cadastrar_disciplina(&qtd_disciplina, amountStudents, registredStudents); Pause(); break;
+                           	case '6': cadastrar_disciplina(&qtd_disciplina, ListaProfessores, CopiaProfessores, aux_struct); Pause(); 
+							break;
 			                  }                               
                             
                     break;
@@ -71,7 +72,8 @@ int main(){
 
 								case '1': UpdateStudent( &amountStudents, registredStudents, MaxStudent ); Pause(); break;
 
-								case '2': AtualizarProfessor( ListaProfessores,&posicao); Pause(); break;
+								case '2': AtualizarProfessor( ListaProfessores,&posicao); Pause();break;
+
 								
 								case '3': atualizar_disciplina(&qtd_disciplina); Pause(); break;
 							  }
@@ -156,7 +158,7 @@ int main(){
 		               switch(key){
 
 		               case '5': printf("\n[8] Homem\t\t [9] Mulher"); Until( &key, '8', '9' ); ListarProfessorSexo( ListaProfessores, &posicao, key); break;
-		               case '6': ListarProfessorNome( ListaProfessores, CopiaProfessores, aux_struct, &posicao ); break;
+		               case '6': ListarProfessorNome( ListaProfessores, CopiaProfessores, aux_struct, posicao ); break;
 		               case '7': ListarProfessorIdade( ListaProfessores, CopiaProfessores, aux_struct, &posicao ); break;   
 
 		               }

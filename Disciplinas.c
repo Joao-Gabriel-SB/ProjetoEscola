@@ -17,12 +17,11 @@ int string_vazia(char *str) {
 
 
 
-void cadastrar_disciplina( int *qtd_disciplina, int amountStudents, Student* registredStudents ){
+void cadastrar_disciplina( int *qtd_disciplina, professores ListaProfessores[], professores CopiaProfessores[],professores aux_struct){
 
     setlocale(LC_ALL,"Portuguese");
 
     printf("\t\t\t\t\tCADASTRO DISCIPLINA\n\n");
-
     Spacer(105);
 
     if (*qtd_disciplina == TAM_DISCIPLINAS)
@@ -44,16 +43,19 @@ void cadastrar_disciplina( int *qtd_disciplina, int amountStudents, Student* reg
                 scanf("%d", &lista_disciplinas[*qtd_disciplina].semestre);
                 while ((getchar()) != '\n');
                 
-                printf("Digite o professor da disciplina: \t");
-                scanf(" %[^\n]",lista_disciplinas[*qtd_disciplina].professor);
+                ListarProfessorNome(ListaProfessores, CopiaProfessores,aux_struct, posicao);  
+                printf("Digite a matrícula do professor da disciplina: \t");
+                BuscarPorMatriculaProf(ListaProfessores, posicao);
+                ListaProfessores[*qtd_disciplina].ProfessoresDisciplina[*qtd_disciplina] = lista_disciplinas[*qtd_disciplina];
+                strcpy(lista_disciplinas[*qtd_disciplina].professor, ListaProfessores[posicao].nome);
 
+                
                 lista_disciplinas[*qtd_disciplina].ativo = 1;
                 
                 (*qtd_disciplina)++;
                 printf("\n\n\t\t\t\t%sCadastro Realizado com sucesso!!!%s\n", yellow_F, reset);
                 
               }
-              
               Pause(); 
 
 }

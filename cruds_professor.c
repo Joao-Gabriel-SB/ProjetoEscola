@@ -42,9 +42,10 @@ void ListarProfessor( professores ListaProfessores[], int posicao ){
 
          	}
 
-			printf("\nMatricula:\t%d\t\n\n",ListaProfessores[i].matricula );
-         
-        }
+			printf("\nMatricula:\t%d\t\n",ListaProfessores[i].matricula );
+      // printf("\nCódigo Disciplina:\t%s\t\n\n",ListaProfessores[i].ProfessoresDisciplina[i].codigo);
+      // PARA PRINTAR MAIS DE UMA DISCIPLINA NECESSÁRIO COLOCAR MAIS UM FOR PARA RODAR.
+    }
 
 	Pause();
 
@@ -327,19 +328,19 @@ int ExcluirProfessor(professores ListaProfessores[],int *posicao){
       printf("Matrícula inexistente.\n");
 }
 
-void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao){
+void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int posicao){
 
     int i,j;
     int comparador;
 
-    for(i=0;i < *posicao; i++)
+    for(i=0;i < posicao; i++)
         {
             CopiaProfessores[i] = ListaProfessores[i]; 
         }
 
     // iniciando o processo de comparação dos nomes p/ verificar o menor e colocar em ordem
-    for( i=0;i < *posicao;i++ ){
-            for(j=i + 1;j < *posicao;j++)
+    for( i=0;i < posicao;i++ ){
+            for(j=i + 1;j < posicao;j++)
               {
                 comparador = strcmp(CopiaProfessores[i].nome,CopiaProfessores[j].nome);
                 if (comparador > 0)
@@ -351,7 +352,7 @@ void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfess
               }
           }
         //Listando todos os professores cadastrados no sistema ordenados por nome
-        for(i=0;i < *posicao;i++)
+        for(i=0;i < posicao;i++)
         {
 
 				Spacer(75);
@@ -525,7 +526,7 @@ int SearchCharProf( professores* vetIn, const int tamVetIn, professores* vetOut,
 void BuscarPorMatriculaProf(professores ListaProfessores[], int posicao){
   int achou = 0;
   int ValueMatricula,VerificadorMatricula,i;
-  printf("Informe o número de matrícula: ");
+  printf("Informe o número de matrícula do Professor: ");
   scanf("%d",&VerificadorMatricula);
   ValueMatricula = 0;
 
@@ -571,12 +572,4 @@ void BuscarPorMatriculaProf(professores ListaProfessores[], int posicao){
 	Pause();
   }
 
-
-
-
-
-
-
-
-
-
+  

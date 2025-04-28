@@ -39,7 +39,27 @@ Student registredStudents[MaxStudent] = {0};
 int amountStudents;
 int idCounter = 202521001;
 
+// Disciplinas =====================================================================================================================
 
+
+typedef struct{
+
+    char nome[StrSizeMax];
+    char codigo[StrSizeMax];
+    int semestre;
+    char professor[StrSizeMax];
+    int ativo;
+    Student alunos[MaxStudent];
+    int qtd_alunos;
+
+} disciplina;
+  
+
+extern disciplina lista_disciplinas[TAM_DISCIPLINAS];
+
+disciplina lista_disciplinas[TAM_DISCIPLINAS] = {0};
+
+int qtd_disciplina=0;
 
 // Professores ====================================================================================================================
 
@@ -62,33 +82,12 @@ typedef struct{
 	struct_nascimento nascimento;
 	char cpf[12];  
 	int ativo;
+        disciplina ProfessoresDisciplina[TAM_DISCIPLINAS];
 
 }professores;
 
 professores ListaProfessores[MaxProfessor], CopiaProfessores[MaxProfessor], aux_struct;
 int posicao = 0;
 int IncrementadorMatricula = 202542000;
-
-// Disciplinas =====================================================================================================================
-
-
-typedef struct{
-
-    char nome[StrSizeMax];
-    char codigo[StrSizeMax];
-    int semestre;
-    char professor[StrSizeMax];
-    int ativo;
-    Student alunos[MaxStudent];
-    int qtd_alunos;
-
-} disciplina;
-  
-
-extern disciplina lista_disciplinas[TAM_DISCIPLINAS];
-
-disciplina lista_disciplinas[TAM_DISCIPLINAS] = {0};
-
-int qtd_disciplina=0;
 
 #endif
