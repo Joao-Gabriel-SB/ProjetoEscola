@@ -5,7 +5,6 @@
 #include "cruds_professor.h"
 #include "Disciplinas.h"
 
-// ashksadhadfsogqweiflkasjdbhlkdsfjhaqijwf
 int main(){
 
    setlocale(LC_ALL,"Portuguese");
@@ -36,7 +35,7 @@ int main(){
 		   	case '1':
 
 			   	printf("\t\t\t%sMENU CADASTRO%s\n\n",bold,reset); Spacer(70);
-			   	printf("[1] Cadastrar\t\t");
+			   	printf("[1] Cadastrar\t\t");git
             	printf("[2] Atualizar\t\t");
             	printf("[3] Excluir\n");
             	StartMenu();
