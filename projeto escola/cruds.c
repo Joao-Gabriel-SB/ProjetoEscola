@@ -24,7 +24,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
         if( amountStudents == 0 ) {
             printf("\n\t\t\t\t\t%sNenhum aluno Matriculado.%s\n\n\n",yellow_F,reset);
             Pause();
-            return 0;
+            return -1;
         }
         
         switch (key){
@@ -77,7 +77,6 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
             
             if( sex == '0' || (sex == '1' && copy[i].sex == 'M') || (sex == '2' && copy[i].sex == 'F')){ // separa por sexo
 
-					 putchar('\n');
                 Spacer(75);
 
 
@@ -106,7 +105,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
 					printf("\nDisciplinas:\t");
 					for(int j = 0; j<copy[i].qtdDisciplinas; j++)
 					 	printf("%s, ",copy[i].disciplinasCadastrado[j] );
-                
+               putchar('\n');
 						
                 if(key == '3'){
 						Pause();
@@ -135,22 +134,23 @@ int ListarPessoas( int amountStudents, Student* registredStudents, professores* 
 
 	amountStudents = SearchChar( registredStudents, amountStudents, copyStd, ArraySize, search, strlen(search));
 
-	ListStudents( amountStudents, registredStudents, MaxStudent, '1');
+	if( amountStudents != 0 ) ListStudents( amountStudents, registredStudents, MaxStudent, '1' );
 
 	posicao = SearchCharProf( ListaProfessores, posicao, copyProf, ArraySize, search, strlen(search) );
 
-	ListarProfessor( copyProf, posicao );
+	if( posicao != 0 ) ListarProfessor( copyProf, posicao );
 
 	if( amountStudents == 0 && posicao == 0){
 
 		printf("\n\t\t\t\t%sNinguém foi encontrado.%s\n", yellow_F, reset);
 		Pause();
 		return -1;
+
 	}
 
 }
 
-//==========================================================================================================================================================================================
+//==========================================================================================================================================
 
 int InsertStudent( int* amountStudents, Student* registredStudents, const int ArraySize, int* idCounter ){
 
@@ -198,7 +198,7 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
 
 		        printf("\n\n\t\t%sCadastro Realizado com sucesso!!!%s\n", yellow_F, reset);
 
-		        printf("\n\n[1] Cadastrar Outro Aluno?\t\t[2] Listar alunos cadastrados\t\t");StartMenu();
+		        printf("\n\n[1] Cadastrar Outro Aluno?\t\t[2] Listar alunos cadastrados\n");StartMenu();
 		        Until( &again, '0', '2' );
 		            
 		        switch (again){
@@ -206,7 +206,7 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
 				    case '1': break;
 				    case '2':
 						ListStudents( *amountStudents, registredStudents, ArraySize, '1' );
-						printf("[1] Cadastrar outro aluno"); StartMenu();
+						printf("\n\n[1] Cadastrar outro aluno"); StartMenu();
 						Until( &again, '0', '1' );
 		        }
 				
@@ -219,6 +219,14 @@ int UpdateStudent( int* amountStudents, Student* registredStudents, const int Ar
 
 		int position;
 		int sucess;		
+
+		if(*amountStudents == 0){
+
+			printf("\n\t\t\t%sNenhum aluno matriculado.%s\n\n\n",yellow_F,reset);
+			Pause();
+			return -1;
+
+	   }
 
 		printf("\t\t\t%sDados Atuais:%s\n", bold, reset );
 		
@@ -241,7 +249,7 @@ int UpdateStudent( int* amountStudents, Student* registredStudents, const int Ar
 		printf("%sAluno Atualizado com sucesso!!!%s", yellow_F, reset );
 				
 		}
-		
+	Pause();
 }
 
 //==========================================================================================================================================================================================
@@ -251,6 +259,14 @@ int DeleteStudent( int* amountStudents, Student* registredStudents, const int Ar
 	int i, findedId = -1;
 	int desiredIdToExclude;
 	Student temp;
+
+	if(*amountStudents == 0){
+
+			printf("\n\t\t\t%sNenhum aluno matriculado.%s\n\n\n",yellow_F,reset);
+			Pause();
+			return -1;
+
+	}
 
 	printf("Matricula do Aluno:\t "); scanf(" %d",&desiredIdToExclude);
 

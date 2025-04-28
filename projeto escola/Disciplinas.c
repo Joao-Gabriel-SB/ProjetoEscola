@@ -17,7 +17,7 @@ int string_vazia(char *str) {
 
 
 
-void cadastrar_disciplina( int *qtd_disciplina, int amountStudents, Student* registredStudents ){
+void cadastrar_disciplina( int *qtd_disciplina ){
 
     setlocale(LC_ALL,"Portuguese");
 
@@ -76,17 +76,23 @@ void listar_disciplina(int *qtd_disciplina){
 }
 
 void atualizar_disciplina(int *qtd_disciplina){
-    printf("                                        ATUALIZACÃO DE DISCIPLINA\n\n");
+
     int achou = 0;
+	 char atualizar[50];
+
     if(*qtd_disciplina==0){
-        printf("\n\n\t\t\t\t\t%sNão há disciplinas para atualizar.%s\n", red_F, reset);
+
+        printf("\n\n\t\t%sNão há disciplinas para atualizar.%s\n", red_F, reset);
         return;
+
     }
     
+	 printf("\t\tATUALIZACÃO DE DISCIPLINA\n\n");
+	 Spacer(100);
+
     printf("Digite o código da disciplina que deseja atualizar: ");
-    char atualizar[50];
-    
     scanf(" %[^\n]",atualizar);
+
     
     if (string_vazia(atualizar)) {
         printf("\n\n\t\t\t\t\t%sCódigo de disciplina inválido%s\n", red_F, reset);
@@ -99,8 +105,12 @@ void atualizar_disciplina(int *qtd_disciplina){
     
     achou = 0;
     for(int i = 0; i < *qtd_disciplina; i++){
+
         if (strcmp(atualizar, lista_disciplinas[i].codigo) == 0 && lista_disciplinas[i].ativo){
-            printf("Digite o novo nome da disciplina: ");
+				
+				achou = 1;
+
+            printf("\n\nDigite o novo nome da disciplina: ");
             scanf(" %[^\n]",lista_disciplinas[i].nome);
 
             printf("Digite o novo código da disciplina: ");
@@ -118,7 +128,6 @@ void atualizar_disciplina(int *qtd_disciplina){
         
         }
         
-        
       }
   
       
@@ -130,7 +139,9 @@ void atualizar_disciplina(int *qtd_disciplina){
 }
 
 void excluir_disciplina(int *qtd_disciplina){
+
     printf("                                        EXCLUSÃO DE DISCIPLINA\n\n");
+
     Spacer(105);
     int achou=0;
     if(*qtd_disciplina==0){
@@ -169,7 +180,7 @@ void excluir_disciplina(int *qtd_disciplina){
         }
     }
     if(achou)
-        printf("\n\n\t\t\t\t%sExclusão realizada com sucesso!!!%s\n", yellow_F, reset);
+        printf("\n\n\t\t\t\t\t%sExclusão realizada com sucesso!!!%s\n", yellow_F, reset);
     else{
         printf("\n\n\t\t\t\t%sDisciplina não encontrada.%s\n", red_F, reset);
     }
@@ -179,24 +190,23 @@ void excluir_disciplina(int *qtd_disciplina){
 
 void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student* registredStudents ){
 
-    
 	 int auxMatricula;
 	 int indexAluno;
 	 int indexDisciplina;
 	 int achou=0;
+    int erro;
 
-
-	 printf("\t\t\t\tInclusão de Aluno\n\n");
-
-    
     if ( *qtd_disciplina == 0 ) {
         printf("\n\t\t\t\t\t%sNenhuma disciplina cadastrada.%s\n\n\n",yellow_F,reset);
+		  Pause();
         return;
     }
 
+	 erro = ListStudents( amountStudents, registredStudents, MaxStudent, '1' );
 
+	 if ( erro == -1 ) return;
 
-	 ListStudents( amountStudents, registredStudents, MaxStudent, '1' );
+	 printf("\t\t\t\t\tInclusão de Aluno\n\n");
 
 	 printf("\n\nMatricula do estudante:\t");
 	 scanf(" %d", &auxMatricula);
@@ -212,7 +222,6 @@ void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student*
 
 	 }
 	 
-
 
 	 printf("\n\nNome:\t\t%s",registredStudents[indexAluno].name);
 	 printf("\nNascimento:\t%02d/%02d/%d", registredStudents[indexAluno].birthday.day, registredStudents[indexAluno].birthday.month, registredStudents[indexAluno].birthday.year);
@@ -232,7 +241,7 @@ void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student*
 
     printf("\nMatricula:\t%d\t\n\n",registredStudents[indexAluno].id);
 
-    printf("\nEscolha a disciplina:");
+
 
     //listar disciplinas
 
@@ -275,16 +284,12 @@ void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student*
         
 		lista_disciplinas[ indexDisciplina ].alunos[ lista_disciplinas[indexDisciplina].qtd_alunos ] = registredStudents[indexAluno];	 	 
 		strcpy( registredStudents[ indexAluno ].disciplinasCadastrado[ registredStudents[indexAluno].qtdDisciplinas ] , lista_disciplinas[ indexDisciplina ].codigo );
-				     
-		printf("Aluno %s agora está matriculado em %d disciplina(s)\n",
-		registredStudents[indexAluno].name,
-		registredStudents[indexAluno].qtdDisciplinas);
 
 
 		registredStudents[indexAluno].qtdDisciplinas++;
 		lista_disciplinas[indexDisciplina].qtd_alunos++;
 
-      printf("\n\t\tAluno incluído com sucesso.\n\n");
+      printf("\n\t\t%sAluno incluído com sucesso.%s\n\n", yellow_F, reset);
      
 	Pause();
 }

@@ -55,7 +55,7 @@ int main(){
 
 			                  	case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent, &idCounter ); break;
                            	case '5': CadastrarProfessor( ListaProfessores, MaxProfessor ,&posicao, &IncrementadorMatricula ); break;
-                           	case '6': cadastrar_disciplina(&qtd_disciplina, amountStudents, registredStudents); Pause(); break;
+                           	case '6': cadastrar_disciplina(&qtd_disciplina); Pause(); break;
 			                  }                               
                             
                     break;
@@ -73,7 +73,7 @@ int main(){
 
 								case '2': AtualizarProfessor( ListaProfessores,&posicao); Pause(); break;
 								
-								case '3': atualizar_disciplina(&qtd_disciplina); Pause(); break;
+								case '3': atualizar_disciplina(&qtd_disciplina); Pause(); Pause(); break;
 							  }
     
 								break;
@@ -106,7 +106,7 @@ int main(){
 			      	printf("\t\t\t\t\t\t%sMENU ALUNOS%s\n\n",bold,reset);Spacer(120);
 			         printf("[1] Listar todos os alunos\t\t");
                   printf("[2] Listar alunos ordenados por...\t\t");
-                  printf("[3] Buscar aluno por matricula");
+                  printf("[3] Buscar aluno por matricula\n");
                   StartMenu();	
                     
                   Until( &key, '0', '3' );        
@@ -156,8 +156,8 @@ int main(){
 		               switch(key){
 
 		               case '5': printf("\n[8] Homem\t\t [9] Mulher"); Until( &key, '8', '9' ); ListarProfessorSexo( ListaProfessores, &posicao, key); break;
-		               case '6': ListarProfessorNome( ListaProfessores, CopiaProfessores, aux_struct, &posicao ); break;
-		               case '7': ListarProfessorIdade( ListaProfessores, CopiaProfessores, aux_struct, &posicao ); break;   
+		               case '6': ListarProfessorNome( ListaProfessores, CopiaProfessores, aux_struct, &posicao ); Pause(); break;
+		               case '7': ListarProfessorIdade( ListaProfessores, CopiaProfessores, aux_struct, &posicao ); Pause(); break;   
 
 		               }
 		                 
@@ -177,10 +177,10 @@ int main(){
 		    	case '4':
 
 			   	printf("\t\t\t\t\t%sMENU DISCIPLINAS%s\n\n",bold,reset);
-				Spacer(105);
+					Spacer(105);
 			   	printf("\n[1] Listar disciplinas\t\t");
-               	printf("[2] Incluir Aluno na Disciplina\t\t");
-				printf("[3] Excluir Aluno da Disciplina\n");
+               printf("[2] Incluir Aluno na Disciplina\t\t");
+					printf("[3] Excluir Aluno da Disciplina\n");
 			    	StartMenu();
                Until(&key, '0', '3');
 
@@ -188,7 +188,7 @@ int main(){
 
 					case '1': listar_disciplina(&qtd_disciplina); Pause(); break;
 					case '2': incluir_aluno_disciplina(&qtd_disciplina, amountStudents, registredStudents); Pause(); break;
-
+					case '3': Pause(); break;
 
 			   }
 
