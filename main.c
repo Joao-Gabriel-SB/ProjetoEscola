@@ -163,7 +163,7 @@ int main(){
 		                 
 		             }
 		                 
-		             //if( key != '0') ListStudents( amountStudents, registredStudents, MaxStudent, key);
+		             if (key == '3') BuscarPorMatriculaProf ( ListaProfessores, posicao );
 		                
 		             Pause();
 		             system("clear||cls");
@@ -196,7 +196,7 @@ int main(){
 
             case '5':
              
-            	ListStudents( amountStudents, registredStudents, MaxStudent, key);               
+            	ListarPessoas( amountStudents, registredStudents, ListaProfessores, posicao, MaxStudent );              
                Pause();
                break;                
 
