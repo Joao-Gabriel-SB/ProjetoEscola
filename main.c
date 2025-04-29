@@ -108,10 +108,11 @@ int main(){
 			      	printf("\t\t\t\t\t\t%sMENU ALUNOS%s\n\n",bold,reset);Spacer(120);
 			         printf("[1] Listar todos os alunos\t\t");
                   printf("[2] Listar alunos ordenados por...\t\t");
-                  printf("[3] Buscar aluno por matricula");
+                  printf("[3] Buscar aluno por matricula\n");
+				  printf("[4] Listar Alunos Matriculados em menos de 3 disciplinas\t");
                   StartMenu();	
                     
-                  Until( &key, '0', '3' );        
+                  Until( &key, '0', '4' );        
                     
                   if( key == '2' ){
                         
@@ -129,6 +130,8 @@ int main(){
                   }
                     
                   if( key != '0') ListStudents( amountStudents, registredStudents, MaxStudent, key);
+
+				  //if (key == '4') colocar o código referente a opção 4
                    
                   Pause();
                 	system("clear||cls");
@@ -143,8 +146,8 @@ int main(){
 
 						printf("\t\t%sMENU PROFESSORES%s\n\n",bold,reset);
 					 	printf("[1] Listar todos os professores\t");
-		            printf("[2] Listar alunos ordenados por...");
-						printf("[3] Buscar aluno por matricula");
+		            	printf("[2] Listar alunos ordenados por...");
+						printf("[3] Buscar aluno por matricula\t");
 					 	StartMenu();
 		            Until( &key, '0', '3' );
 					 
@@ -183,9 +186,10 @@ int main(){
 			   	printf("\n[1] Listar disciplinas\t\t");
                	printf("[2] Incluir aluno na disciplina\t\t");
 				printf("[3] Excluir aluno da disciplina\n");
-				printf("[4] Listar alunos por disciplina");
+				printf("[4] Listar alunos por disciplina\t");
+				printf("[5] Listar Disciplinas com mais de 40 alunos.\t");
 			    	StartMenu();
-               Until(&key, '0', '4');
+               Until(&key, '0', '5');
 
 			   switch(key){
 
@@ -193,6 +197,7 @@ int main(){
 					case '2': incluir_aluno_disciplina(&qtd_disciplina, amountStudents, registredStudents); Pause(); break;
 					case '3': excluir_aluno_disciplina(&qtd_disciplina); Pause(); break;
 					case '4': listar_alunos_disciplina(&qtd_disciplina); Pause(); break;
+					case '5': ListarDisciplinasLotadas(lista_disciplinas,TAM_DISCIPLINAS); Pause(); break;
 			   }
 
 			   break;

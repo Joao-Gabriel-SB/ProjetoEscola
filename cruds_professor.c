@@ -285,6 +285,9 @@ int AtualizarProfessor(professores ListaProfessores[], int *posicao){
         } 
 }
 
+//=============================================================================================================================
+
+
 int ExcluirProfessor(professores ListaProfessores[],int *posicao){
     int achou = 0;
     int ValueMatricula,VerificadorMatricula,i,j;
@@ -327,6 +330,8 @@ int ExcluirProfessor(professores ListaProfessores[],int *posicao){
     else
       printf("Matrícula inexistente.\n");
 }
+
+//=============================================================================================================================
 
 void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int posicao){
 
@@ -383,9 +388,7 @@ void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfess
 	Pause();
 }
 
-
-
-
+//=============================================================================================================================
 
 void ListarProfessorIdade(professores ListaProfessores[],professores CopiaProfessores[],professores aux_struct, int *posicao){
     // ORDENAÇÃO POR IDADE
@@ -447,8 +450,7 @@ void ListarProfessorIdade(professores ListaProfessores[],professores CopiaProfes
 	Pause();
 }
 
-
-
+//=============================================================================================================================
 
 void ListarProfessorSexo(professores ListaProfessores[], int *posicao, char key){
     //Listando os professores por Sexo

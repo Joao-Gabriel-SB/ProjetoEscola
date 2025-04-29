@@ -322,7 +322,6 @@ void listar_alunos_disciplina( int *qtd_disciplina){
 }
 
 
-
 void excluir_aluno_disciplina(int *qtd_disciplina){
     printf("                                        Exclusão de Aluno\n\n");
     int achou=0;
@@ -387,5 +386,19 @@ void excluir_aluno_disciplina(int *qtd_disciplina){
       printf("Disciplina não encontrada.\n\n");
 
     Pause();
+    }
+}
+
+void ListarDisciplinasLotadas(disciplina lista_disciplinas[],int MaxDisciplina){
+    int i,j;
+    for (i=0; i < MaxDisciplina; i++)
+    {
+        if(lista_disciplinas[i].qtd_alunos > 40)
+        {
+            printf("\n\tDisciplina: %s\n",lista_disciplinas[i].nome);
+            printf("Código: %s\n",lista_disciplinas[i].codigo);
+            printf("Professor da Disciplina: %s\n\n",lista_disciplinas[i].professor);
+            Pause(); 
+        }
     }
 }
