@@ -181,17 +181,18 @@ int main(){
 			   	printf("\t\t\t\t\t%sMENU DISCIPLINAS%s\n\n",bold,reset);
 				Spacer(105);
 			   	printf("\n[1] Listar disciplinas\t\t");
-               	printf("[2] Incluir Aluno na Disciplina\t\t");
-				printf("[3] Excluir Aluno da Disciplina\n");
+               	printf("[2] Incluir aluno na disciplina\t\t");
+				printf("[3] Excluir aluno da disciplina\n");
+				printf("[4] Listar alunos por disciplina");
 			    	StartMenu();
-               Until(&key, '0', '3');
+               Until(&key, '0', '4');
 
 			   switch(key){
 
 					case '1': listar_disciplina(&qtd_disciplina); Pause(); break;
 					case '2': incluir_aluno_disciplina(&qtd_disciplina, amountStudents, registredStudents); Pause(); break;
-
-
+					case '3': excluir_aluno_disciplina(&qtd_disciplina); Pause(); break;
+					case '4': listar_alunos_disciplina(&qtd_disciplina); Pause(); break;
 			   }
 
 			   break;

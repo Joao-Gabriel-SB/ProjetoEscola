@@ -568,6 +568,7 @@ void BuscarPorMatriculaProf(professores ListaProfessores[], int posicao){
    else
    {
     printf("Não existe professor cadastrado com a matrícula digitada.\n");
+    //falta decrementar caso a pessoa cadastre e erre a matrícula do professor
    }
 	Pause();
   }
