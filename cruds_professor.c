@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
 #include "utils.h"
 
 
@@ -56,12 +55,12 @@ void ListarProfessor( professores ListaProfessores[], int posicao ){
 
 int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao, int *IncrementadorMatricula ) {
 
-    int verificador_sexo = 1;
+    	int verificador_sexo = 1;
 	 int cpf_valido = 1;
 	 int data_valido = 1;
 	 char sair = '1';
+	 int cancelar;
 	  
-
     // Gera a matrícula
 	while ( sair == '1' ){
 	
@@ -124,7 +123,8 @@ int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao
       &ListaProfessores[*posicao].nascimento.mes, 
       &ListaProfessores[*posicao].nascimento.ano);
 
-      //data_valido = validador_data(ListaProfessores[*posicao].nascimento.dia,ListaProfessores[*posicao].nascimento.mes,ListaProfessores[*posicao].nascimento.ano);
+      data_valido = validador_data(ListaProfessores[*posicao].nascimento.dia,ListaProfessores[*posicao].nascimento.mes,ListaProfessores[*posicao].nascimento.ano);
+
 
 
       if (data_valido == 0)
@@ -145,8 +145,7 @@ int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao
       scanf(" %[^\n]",ListaProfessores[*posicao].cpf );
 		ListaProfessores[ *posicao ].cpf[ strcspn ( ListaProfessores[ *posicao ].cpf, "\n" ) ] = '\0'; 
       
-
-      //cpf_valido = validador_cpf(ListaProfessores[*posicao].cpf);
+      cpf_valido = validador_cpf(ListaProfessores[*posicao].cpf);
 
       if(cpf_valido == 0)
       {
@@ -156,6 +155,9 @@ int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao
       }  
 
     }while(cpf_valido == 0);
+
+	cancelar = Confirmar();
+	if ( cancelar == -1 ) {Pause();return -1;}
 
     // Atualiza posição
     (*posicao)++;
@@ -168,8 +170,8 @@ int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao
 		            
 			switch (sair){
 
-				case '0': sair = '0';
-				case '1': break;
+			   case '0': sair = '0';
+			   case '1': break;
 			   case '2':
 					ListarProfessor( ListaProfessores, *posicao );
 					printf("[1] Cadastrar outro professor"); StartMenu();
@@ -181,6 +183,8 @@ int CadastrarProfessor( professores ListaProfessores[], int limite, int* posicao
 //=============================================================================================================================
 
 int ExcluirProfessor(professores ListaProfessores[],int *posicao){
+
+    int cancelar;
     int achou = 0;
     int ValueMatricula,VerificadorMatricula,i,j;
 
@@ -198,6 +202,8 @@ int ExcluirProfessor(professores ListaProfessores[],int *posicao){
     scanf("%d",&VerificadorMatricula);
     ValueMatricula = 0;
 
+    cancelar = Confirmar();
+    if ( cancelar == -1 ) {Pause();return -1;}
 
     for(i=0; i <= *posicao;i++) // exclusao lógica (inativando usuário)
       {
@@ -232,7 +238,8 @@ int ExcluirProfessor(professores ListaProfessores[],int *posicao){
         }
 
     if (achou == 1)
-      printf("Professor excluído com sucesso.\n");
+    
+      printf("\n\n\t\t%sProfessor excluido com sucesso!!!%s\n", yellow_F, reset );
     else
       printf("Matrícula inexistente.\n");
 
@@ -298,7 +305,7 @@ void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfess
 				printf("Disciplina:\t%s\t\n\n",CopiaProfessores[i].ProfessoresDisciplina[i].codigo);
 
         }
-	Pause();
+
 }
 
 
@@ -450,7 +457,8 @@ int BuscarPorMatriculaProf( professores ListaProfessores[], int posicao ){
 
   int achou = 0;
   int ValueMatricula,VerificadorMatricula,i;
-  printf("Informe o número de matrícula: ");
+  
+  printf("Matrícula do professor a ser incluído: ");
   scanf("%d",&VerificadorMatricula);
   ValueMatricula = 0;
 

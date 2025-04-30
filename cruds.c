@@ -182,8 +182,11 @@ int ListarPessoas( int amountStudents, Student* registredStudents, professores* 
 
 int InsertStudent( int* amountStudents, Student* registredStudents, const int ArraySize, int* idCounter ){
 
+	int verificador_sexo = 1;
+	int cpf_valido = 1;
+	int data_valido = 1;
         char again = '1';
-		  int cancelar;
+	int cancelar;
 
             while( again == '1' ){
 
@@ -204,24 +207,63 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
 		        printf("\nNome do aluno:\t\t\t");
 		        scanf(" %[^\n]",registredStudents[*amountStudents].name);
 
-		        //do{
+		        do{
+
 		        printf("Data de Nascimento(##/##/####):\t");
 		        scanf(" %d/ %d/ %d",
 				    &registredStudents[*amountStudents].birthday.day, 
 				    &registredStudents[*amountStudents].birthday.month, 
 				    &registredStudents[*amountStudents].birthday.year);
-		        //validacaoNascimento(valido, alunosCadastrados[i].nascimento.dia, alunosCadastrados[i].nascimento.mes, alunosCadastrados[i].nascimento.ano) } while (!valido);
+
+		        data_valido = validador_data(registredStudents[*amountStudents].birthday.day,registredStudents[*amountStudents].birthday.month,registredStudents[*amountStudents].birthday.year);
+
+
+      			if (data_valido == 0)
+      			{
+
+        		printf("Data de Nascimento digitada está INVÁLIDA. Tente novamente.\n");
+
+      			}
+
+    			}while(data_valido == 0);
 
 		        printf("Sexo(M/F):\t\t\t");
-		        scanf(" %c",&registredStudents[*amountStudents].sex);
+		        
+		        while (verificador_sexo) {
 
-		        //do{
-		        printf("Cpf:\t\t\t\t");
-		        scanf(" %[^\n]",registredStudents[*amountStudents].cpf);
-		        //validacaocpf(valido, cpf) } while(!valido);
+        			scanf(" %c",&registredStudents[*amountStudents].sex);
 
-				  cancelar = Confirmar();
-				  if ( cancelar == -1 ) {Pause();return -1;}				
+
+        			if (registredStudents[*amountStudents].sex == 'm' || registredStudents[*amountStudents].sex == 'M' ||
+            				registredStudents[*amountStudents].sex == 'f' || registredStudents[*amountStudents].sex == 'F') {
+
+            				break;
+
+        			} else {
+
+            				printf("Entrada inválida, tente novamente.\nSexo (M/F): ");
+					limpar_buffer();
+        			}
+    			}
+		        
+
+		        do{
+				printf("Cpf:\t\t\t\t");
+				scanf(" %[^\n]",registredStudents[*amountStudents].cpf);
+				
+				cpf_valido = validador_cpf(registredStudents[*amountStudents].cpf);
+
+		      		if(cpf_valido == 0)
+		      		{
+
+					printf("CPF Inválido, tente novamente!.\n");
+
+		      		}  
+
+		    	}while(cpf_valido == 0);
+
+			cancelar = Confirmar();
+			if ( cancelar == -1 ) {Pause();return -1;}				
 
 		        registredStudents[*amountStudents].id = *idCounter;
 
@@ -240,7 +282,7 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
 				    case '2':
 						ListStudents( *amountStudents, registredStudents, ArraySize, '1' );
 
-						printf("\n\n[1] Cadastrar outro aluno"); StartMenu();
+						printf("\n\n[1] Cadastrar outro aluno\t"); StartMenu();
 
 						Until( &again, '0', '1' );
 		        }
@@ -293,8 +335,10 @@ int UpdateStudent( int* amountStudents, Student* registredStudents, const int Ar
 //==========================================================================================================================================================================================
 
 int DeleteStudent( int* amountStudents, Student* registredStudents, const int ArraySize ){
- 
-	int i, findedId = -1;
+
+ 	int cancelar;
+	int i; 
+	int findedId = -1;
 	int desiredIdToExclude;
 	Student temp;
 
@@ -319,7 +363,10 @@ int DeleteStudent( int* amountStudents, Student* registredStudents, const int Ar
 		}	
 	
 	if ( findedId != -1 ){
-
+		
+		cancelar = Confirmar();
+		if ( cancelar == -1 ) {Pause();return -1;}	
+		
 		temp = registredStudents[findedId];
 	
 		for( i = findedId; i < *amountStudents - 1; i++ )
