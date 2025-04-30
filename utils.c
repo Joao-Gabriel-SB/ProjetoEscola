@@ -119,7 +119,6 @@ int SearchInt( int tamanhoDoVetor, void* Nomevetor, size_t tipoDoElemento, int (
     }
     
     return index;
-        
 }
 
 //=====================================================================================================================================================================================================
@@ -341,8 +340,7 @@ int validador_cpf (char cpf_validation[]){
     return 0;
 }
 
-int validador_data (int dia, int mes, int ano)
-{
+int validador_data (int dia, int mes, int ano){
    // Verifica ano válido
       if (ano < 1900 || ano > 2100)
           return 0;
