@@ -14,7 +14,6 @@
 
 //Alunos==============================================================================================================
 
-
 typedef struct{
 
         int day;
@@ -41,6 +40,7 @@ Student registredStudents[MaxStudent] = {0};
 int amountStudents;
 int idCounter = 202521001;
 
+
 // Disciplinas =====================================================================================================================
 
 
@@ -62,6 +62,7 @@ extern disciplina lista_disciplinas[TAM_DISCIPLINAS];
 disciplina lista_disciplinas[TAM_DISCIPLINAS] = {0};
 
 int qtd_disciplina=0;
+
 
 // Professores ====================================================================================================================
 
