@@ -53,10 +53,9 @@ int main(){
 
                         	switch(key){
 
-			                  	case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent, &idCounter ); break;
+			                case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent, &idCounter ); break;
                            	case '5': CadastrarProfessor( ListaProfessores, MaxProfessor ,&posicao, &IncrementadorMatricula ); break;
-                           	case '6': cadastrar_disciplina(&qtd_disciplina, ListaProfessores, CopiaProfessores, aux_struct); Pause(); 
-							break;
+                           	case '6': cadastrar_disciplina(&qtd_disciplina, ListaProfessores, CopiaProfessores, aux_struct); Pause(); break;
 			                  }                               
                             
                     break;
@@ -75,7 +74,7 @@ int main(){
 								case '2': AtualizarProfessor( ListaProfessores,&posicao); Pause();break;
 
 								
-								case '3': atualizar_disciplina(&qtd_disciplina); Pause(); break;
+								case '3': atualizar_disciplina(&qtd_disciplina, ListaProfessores, CopiaProfessores, aux_struct); Pause(); break;
 							  }
     
 								break;
@@ -131,7 +130,7 @@ int main(){
                     
                   if( key != '0') ListStudents( amountStudents, registredStudents, MaxStudent, key);
 
-				  //if (key == '4') colocar o código referente a opção 4
+				  if (key == '4') ListarMenordeTres (registredStudents, MaxStudent);
                    
                   Pause();
                 	system("clear||cls");

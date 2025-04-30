@@ -18,8 +18,8 @@ int string_vazia(char *str) {
 
 
 
-void cadastrar_disciplina( int *qtd_disciplina, professores ListaProfessores[], professores CopiaProfessores[],professores aux_struct){
-
+int cadastrar_disciplina( int *qtd_disciplina, professores ListaProfessores[], professores CopiaProfessores[],professores aux_struct){
+    int returnMatricula;
     setlocale(LC_ALL,"Portuguese");
 
     printf("\t\t\t\t\tCADASTRO DISCIPLINA\n\n");
@@ -42,20 +42,25 @@ void cadastrar_disciplina( int *qtd_disciplina, professores ListaProfessores[], 
 
                 printf("Digite o semestre da disciplina: \t");
                 scanf("%d", &lista_disciplinas[*qtd_disciplina].semestre);
-                while ((getchar()) != '\n');
+                
                 
                 ListarProfessorNome(ListaProfessores, CopiaProfessores,aux_struct, posicao);  
-                BuscarPorMatriculaProf(ListaProfessores, posicao);
+                returnMatricula = BuscarPorMatriculaProf(ListaProfessores, posicao);
+                if (returnMatricula == 0)
+                {
                 ListaProfessores[*qtd_disciplina].ProfessoresDisciplina[*qtd_disciplina] = lista_disciplinas[*qtd_disciplina];
                 strcpy(lista_disciplinas[*qtd_disciplina].professor, ListaProfessores[posicao].nome);
-
-                
                 lista_disciplinas[*qtd_disciplina].ativo = 1;
-                
                 (*qtd_disciplina)++;
                 printf("\n\n\t\t\t\t%sCadastro Finalizado!!!%s\n", yellow_F, reset);
-                
-              }
+                Pause();
+                return 0;
+                }
+                else
+                    memset(&lista_disciplinas[*qtd_disciplina], 0, sizeof(disciplina)); // limpa os dados
+                    Pause();
+                    return -1;
+                }
               Pause(); 
 
 }
@@ -77,12 +82,13 @@ void listar_disciplina(int *qtd_disciplina){
     Pause();
 }
 
-void atualizar_disciplina(int *qtd_disciplina){
+int atualizar_disciplina(int *qtd_disciplina,professores ListaProfessores[], professores CopiaProfessores[],professores aux_struct){
+    int returnMatricula;
     printf("                                        ATUALIZACÃO DE DISCIPLINA\n\n");
     int achou = 0;
     if(*qtd_disciplina==0){
         printf("\n\n\t\t\t\t\t%sNão há disciplinas para atualizar.%s\n", red_F, reset);
-        return;
+        return -1;
     }
     
     printf("Digite o código da disciplina que deseja atualizar: ");
@@ -92,7 +98,7 @@ void atualizar_disciplina(int *qtd_disciplina){
     
     if (string_vazia(atualizar)) {
         printf("\n\n\t\t\t\t\t%sCódigo de disciplina inválido%s\n", red_F, reset);
-        return;
+        return -1;
     }
     
     for (int i = 0; atualizar[i] != '\0'; i++) {
@@ -115,21 +121,45 @@ void atualizar_disciplina(int *qtd_disciplina){
             scanf("%d", &lista_disciplinas[i].semestre);
             while ((getchar()) != '\n');
 
-            printf("Digite o novo professor da disciplina: ");
-            scanf(" %[^\n]",lista_disciplinas[i].professor);
-        
+            ListarProfessorNome(ListaProfessores, CopiaProfessores,aux_struct, posicao); 
+            
+            returnMatricula = BuscarPorMatriculaProf(ListaProfessores, posicao);
+                if (returnMatricula == 0)
+                {
+                ListaProfessores[i].ProfessoresDisciplina[i] = lista_disciplinas[i];
+                strcpy(lista_disciplinas[i].professor, ListaProfessores[posicao].nome);
+                lista_disciplinas[i].ativo = 1;
+                Pause();
+                return 0;
+                }
+                else
+                    break;
+                    Pause();
+                    return -1;
+                }
+              Pause(); 
         }
-        
-        
-      }
+        if(achou==1 && returnMatricula == 0)
+        {
+            printf("\n\n\t\t\t\t%sDisciplina atualizada com sucesso!!!%s\n", yellow_F, reset);
+            Pause();
+        }
+            
+        else
+        {
+            if(achou == 0)
+            {
+                printf("\n\n\t\t\t\t%sDisciplina não encontrada.%s\n", red_F, reset);
+                Pause();
+            }    
+        }
+            
+            return 0;
+            Pause();
+            
+}
   
       
-    if(achou==1)
-        printf("\n\n\t\t\t\t%sDisciplina atualizada com sucesso!!!%s\n", yellow_F, reset);
-    else
-        printf("\n\n\t\t\t\t%sDisciplina não encontrada.%s\n", red_F, reset);
-
-}
 
 void excluir_disciplina(int *qtd_disciplina){
     printf("                                        EXCLUSÃO DE DISCIPLINA\n\n");
@@ -321,7 +351,6 @@ void listar_alunos_disciplina( int *qtd_disciplina){
 
 }
 
-
 void excluir_aluno_disciplina(int *qtd_disciplina){
     printf("                                        Exclusão de Aluno\n\n");
     int achou=0;
@@ -391,6 +420,7 @@ void excluir_aluno_disciplina(int *qtd_disciplina){
 
 void ListarDisciplinasLotadas(disciplina lista_disciplinas[],int MaxDisciplina){
     int i,j;
+    j = 0;
     for (i=0; i < MaxDisciplina; i++)
     {
         if(lista_disciplinas[i].qtd_alunos > 40)
@@ -399,6 +429,13 @@ void ListarDisciplinasLotadas(disciplina lista_disciplinas[],int MaxDisciplina){
             printf("Código: %s\n",lista_disciplinas[i].codigo);
             printf("Professor da Disciplina: %s\n\n",lista_disciplinas[i].professor);
             Pause(); 
+            j = 1;
         }
     }
+
+    if (j == 0)
+    {
+        printf("Não existem disciplinas que possuem mais de 40 alunos matriculados.\n");
+    }
+    Pause();
 }

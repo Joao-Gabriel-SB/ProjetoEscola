@@ -285,3 +285,24 @@ int DeleteStudent( int* amountStudents, Student* registredStudents, const int Ar
 }
 
 //==========================================================================================================================================================================================
+
+void ListarMenordeTres (Student registredStudents[], int TamStudent){
+	int i,j;
+	j = 0;
+	system("clear || cls");
+	printf("\t\t\tAlunos matriculados em menos de 3 disciplinas:\n");
+    for (i=0; i < TamStudent; i++)
+    {
+        if(registredStudents[i].qtdDisciplinas < 2)
+        {
+            printf(" %s\n",registredStudents[i].name); 
+			j = 1;
+        }
+    }
+
+	if (j == 0)
+	{
+		printf("Não existem estudantes cadastrados em menos de 3 disciplinas.\n");
+	}
+	Pause();
+}

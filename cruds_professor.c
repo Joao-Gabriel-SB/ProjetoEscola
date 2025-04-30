@@ -525,7 +525,7 @@ int SearchCharProf( professores* vetIn, const int tamVetIn, professores* vetOut,
 
 //==================================================================================================================================================================
 
-void BuscarPorMatriculaProf(professores ListaProfessores[], int posicao){
+int BuscarPorMatriculaProf(professores ListaProfessores[], int posicao){
   int achou = 0;
   int ValueMatricula,VerificadorMatricula,i;
   printf("Informe o número de matrícula do Professor: ");
@@ -565,11 +565,13 @@ void BuscarPorMatriculaProf(professores ListaProfessores[], int posicao){
          	}
 
 			printf("\nMatricula:\t%d\t\n\n",ListaProfessores[i].matricula );
+      return 0;
          
    }
    else
    {
     printf("Não existe professor cadastrado com a matrícula digitada.\n");
+    return -1;
     //falta decrementar caso a pessoa cadastre e erre a matrícula do professor
    }
 	Pause();
