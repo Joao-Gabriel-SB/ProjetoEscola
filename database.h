@@ -5,11 +5,11 @@
 #include <stdlib.h>
 #include <locale.h>
 
-#define TAM_DISCIPLINAS 5
+#define TAM_DISCIPLINAS 30
 #define MAX_ALUNOS_DISCIPLINA 20
-#define MaxStudent 3
+#define MaxStudent 100
 #define StrSizeMax 100
-#define MaxProfessor 3
+#define MaxProfessor 20
 
 
 //Alunos==============================================================================================================
