@@ -61,7 +61,7 @@ int cadastrar_disciplina( int *qtd_disciplina, professores ListaProfessores[], p
                 printf("\nDigite o nome da disciplina: \t\t");
                 scanf(" %[^\n]",lista_disciplinas[*qtd_disciplina].nome);
 
-                printf("Digite o código da disciplina: \t");
+                printf("Digite o código da disciplina: \t\t");
 
                 scanf(" %[^\n]",lista_disciplinas[*qtd_disciplina].codigo);
                 for (int i = 0; lista_disciplinas[*qtd_disciplina].codigo[i] != '\0'; i++) {
@@ -70,10 +70,6 @@ int cadastrar_disciplina( int *qtd_disciplina, professores ListaProfessores[], p
 
                 printf("Digite o semestre da disciplina: \t");
                 scanf("%d", &lista_disciplinas[*qtd_disciplina].semestre);
-
-                cancelar = Confirmar();
-                if ( cancelar == -1 ) {Pause();return -1;}
-
                 
                 ListarProfessorNome( ListaProfessores, CopiaProfessores, aux_struct, posicao );
   
@@ -84,6 +80,9 @@ int cadastrar_disciplina( int *qtd_disciplina, professores ListaProfessores[], p
 
                 ListaProfessores[*qtd_disciplina].ProfessoresDisciplina[*qtd_disciplina] = lista_disciplinas[*qtd_disciplina];
                 strcpy(lista_disciplinas[*qtd_disciplina].professor, ListaProfessores[*qtd_disciplina].nome);
+
+		cancelar = Confirmar();
+        if ( cancelar == -1 ) {Pause();return -1;}
 
                 lista_disciplinas[*qtd_disciplina].ativo = 1;
                 (*qtd_disciplina)++;
@@ -105,9 +104,9 @@ int cadastrar_disciplina( int *qtd_disciplina, professores ListaProfessores[], p
 
 				case '0': sair = '0';
 				case '1': break;
-			   case '2':
+			    case '2':
                     listar_disciplina(qtd_disciplina);
-					printf("[1] Cadastrar outra disciplina\t"); StartMenu();
+					printf("[1] Cadastrar outra disciplina\t");
 					Until( &sair, '0', '1' );
 
                 
@@ -205,15 +204,15 @@ int atualizar_disciplina( int *qtd_disciplina, professores ListaProfessores[], p
   
       
 
-void excluir_disciplina(int *qtd_disciplina){
-
+int excluir_disciplina(int *qtd_disciplina){
+    int cancelar;
     printf("                                        EXCLUSÃO DE DISCIPLINA\n\n");
     Spacer(105);
     int achou=0;
     if(*qtd_disciplina==0){
         printf("\n\n\t\t\t\t%sNão há disciplinas para excluir.%s\n", red_F, reset);
         Pause();
-        return;
+        return -1;
     }
     
     printf("\nDigite o código da disciplina que deseja excluir: ");
@@ -222,24 +221,26 @@ void excluir_disciplina(int *qtd_disciplina){
 
     if (string_vazia(excluir)) {
         printf("\n\n\t\t\t\t\t%sCódigo de disciplina inválido%s\n", red_F, reset);
-        return;
+        return -1;
     }
     
     achou = 0;
     for (int i = 0; excluir[i] != '\0'; i++){
         excluir[i] = toupper(excluir[i]);
     }
-
+	cancelar = Confirmar();
+    if ( cancelar == -1 ) {Pause();return -1;}
+        
     for(int i = 0; i < *qtd_disciplina; i++){
         if (strcmp(excluir, lista_disciplinas[i].codigo) == 0){
         lista_disciplinas[i].ativo = 0;
-        for(int j = i;j < *qtd_disciplina - 1; j++){
-            strcpy(lista_disciplinas[j].nome, lista_disciplinas[j+1].nome);
-            strcpy(lista_disciplinas[j].codigo, lista_disciplinas[j+1].codigo);
-            lista_disciplinas[j].semestre = lista_disciplinas[j+1].semestre;
-            strcpy(lista_disciplinas[j].professor, lista_disciplinas[j+1].professor);
-            lista_disciplinas[j].ativo = lista_disciplinas[j+1].ativo;
-        }
+        	for(int j = i;j < *qtd_disciplina - 1; j++){
+		        strcpy(lista_disciplinas[j].nome, lista_disciplinas[j+1].nome);
+		        strcpy(lista_disciplinas[j].codigo, lista_disciplinas[j+1].codigo);
+		        lista_disciplinas[j].semestre = lista_disciplinas[j+1].semestre;
+		        strcpy(lista_disciplinas[j].professor, lista_disciplinas[j+1].professor);
+		        lista_disciplinas[j].ativo = lista_disciplinas[j+1].ativo;
+        	}
         
         (*qtd_disciplina)--;
         achou = 1;
@@ -256,24 +257,24 @@ void excluir_disciplina(int *qtd_disciplina){
 
 }
 
-void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student* registredStudents ){
+int incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student* registredStudents ){
 
-
+	 int cancelar;
 	 int auxMatricula;
 	 int indexAluno;
 	 int indexDisciplina;
 	 int achou=0;
-    int erro;
+     int erro;
 
     if ( *qtd_disciplina == 0 ) {
         printf("\n\t\t\t\t\t%sNenhuma disciplina cadastrada.%s\n\n\n",yellow_F,reset);
 		  Pause();
-        return;
+        return -1;
     }
 
 	 erro = ListStudents( amountStudents, registredStudents, MaxStudent, '1' );
 
-	 if ( erro == -1 ) return;
+	 if ( erro == -1 ) return -1;
 
 	 printf("\n\t\t\tInclusão de aluno em disciplina\n\n");
      Spacer(50);
@@ -288,7 +289,7 @@ void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student*
 		 printf("\n\t\t\t\t%sNenhum aluno encontrado com essa matricula.%s\n", yellow_F, reset); 
 		          
 		 Pause();
-		 return;
+		 return -1;
 
 	 }
 	 
@@ -343,9 +344,12 @@ void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student*
  
       printf("\n\t\t\t\t%sDisciplina não encontrada.%s\n", yellow_F, reset);
 		Pause();
-      return;
+      return -1;
 
     }
+    
+    	cancelar = Confirmar();
+        if ( cancelar == -1 ) {Pause();return -1;}
         
 		lista_disciplinas[ indexDisciplina ].alunos[ lista_disciplinas[indexDisciplina].qtd_alunos ] = registredStudents[indexAluno];	 	 
 		strcpy( registredStudents[ indexAluno ].disciplinasCadastrado[ registredStudents[indexAluno].qtdDisciplinas ] , lista_disciplinas[ indexDisciplina ].codigo );
@@ -362,8 +366,7 @@ void incluir_aluno_disciplina( int *qtd_disciplina, int amountStudents, Student*
       printf("\n\t\t%sAluno incluído com sucesso.%s\n\n", yellow_F, reset);
 
       StartMenu();
-     
-	Pause();
+
 }
 
 
@@ -401,14 +404,16 @@ void listar_alunos_disciplina( int *qtd_disciplina){
 }
 
 
-void excluir_aluno_disciplina(int *qtd_disciplina) {
-    printf("\t\t\tEXCLUSÃO DE ALUNO\n\n");
+int excluir_aluno_disciplina(int *qtd_disciplina, Student* registredStudents) {
+
+	int cancelar;
 
     if (*qtd_disciplina == 0) {
         printf("\n\n\t\t\t\t%sNão há disciplinas cadastradas.%s\n", red_F, reset);
         Pause();
-        return;
+        return -1;
     }
+    printf("\t\t\tEXCLUSÃO DE ALUNO\n\n");
 
     printf("Digite o código da disciplina: ");
 
@@ -429,7 +434,7 @@ void excluir_aluno_disciplina(int *qtd_disciplina) {
             if (lista_disciplinas[i].qtd_alunos == 0) {
                 printf("\n\n\t\t\t\t\t%sNão há alunos nesta disciplina%s\n", red_F, reset);
                 Pause();
-                return;
+                return -1;
             }
             Spacer(30);
             printf("Alunos matriculados nesta disciplina:\n\n");
@@ -442,22 +447,30 @@ void excluir_aluno_disciplina(int *qtd_disciplina) {
             int indice;
             scanf("%d", &indice);
             indice--;
-            while ((getchar()) != '\n');
+            
 
             if (indice < 0 || indice >= lista_disciplinas[i].qtd_alunos) {
                 printf("Índice inválido.\n\n");
                 Pause();
-                return;
+                return -1;
             }
+            
+    cancelar = Confirmar();
+    if ( cancelar == -1 ) {Pause(); return -1;}
 
             // Remove o aluno deslocando os elementos para a esquerda
             for (int j = indice; j < lista_disciplinas[i].qtd_alunos - 1; j++) {
                 lista_disciplinas[i].alunos[j] = lista_disciplinas[i].alunos[j + 1];
             }
+            
+            for (int j = indice; j < registredStudents[i].qtdDisciplinas - 1; j++) {
+                strcpy( registredStudents[i].disciplinasCadastrado[j] , registredStudents[i].disciplinasCadastrado[j + 1]);
+            }
 
             lista_disciplinas[i].qtd_alunos--;
+            registredStudents[i].qtdDisciplinas--;
             printf("\n\t\t\t\t%sAluno removido com sucesso!!%s\n", yellow_F, reset);
-            return;
+            return -1;
         }
     }
 

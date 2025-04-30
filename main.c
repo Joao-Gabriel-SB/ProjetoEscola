@@ -4,7 +4,7 @@
 #include "cruds.h"
 #include "cruds_professor.h"
 #include "Disciplinas.h"
-//teste de push
+
 int main() {
     setlocale(LC_ALL, "Portuguese");
 
@@ -98,7 +98,7 @@ int main() {
                     printf("[1] Listar todos os alunos\t\t");
                     printf("[2] Listar alunos ordenados por...\t\t");
                     printf("[3] Buscar aluno por matricula\n");
-                    printf("[4] Listar Alunos Matriculados em menos de 3 disciplinas\t");
+                    printf("[4] Alunos em menos de 3 disciplinas\t");
 
                     StartMenu();
                     Until(&key, '0', '4');
@@ -125,12 +125,11 @@ int main() {
 
             case '3':
                 do {
-                    printf("\t\t%sMENU PROFESSORES%s\n\n", bold, reset);
-
+                    printf("\t\t\t\t\t\t%sMENU PROFESSORES%s\n\n", bold, reset);
+		    Spacer(111);
                     printf("[1] Listar todos os professores\t");
-                    printf("[2] Listar alunos ordenados por...");
-                    printf("[3] Buscar aluno por matricula\t");
-
+                    printf("[2] Listar professores ordenados por...\t");
+                    printf("[3] Buscar professores por matricula\n");
                     StartMenu();
                     Until(&key, '0', '3');
 
@@ -178,7 +177,7 @@ int main() {
                 switch (key) {
                     case '1': listar_disciplina(&qtd_disciplina); Pause(); break;
                     case '2': incluir_aluno_disciplina(&qtd_disciplina, amountStudents, registredStudents); Pause(); break;
-                    case '3': excluir_aluno_disciplina(&qtd_disciplina); Pause(); break;
+                    case '3': excluir_aluno_disciplina(&qtd_disciplina, registredStudents); Pause(); break;
                     case '4': listar_alunos_disciplina(&qtd_disciplina); Pause(); break;
                     case '5': ListarDisciplinasLotadas(lista_disciplinas, TAM_DISCIPLINAS); Pause(); break;
                 }

@@ -29,8 +29,8 @@ typedef struct {
         char         sex;
         char         cpf[12];
         int          id;
-		  char  			disciplinasCadastrado[ TAM_DISCIPLINAS ][ StrSizeMax ];
-		  int  			qtdDisciplinas;
+	char  	     disciplinasCadastrado[ TAM_DISCIPLINAS ][ StrSizeMax ];
+	int          qtdDisciplinas;
 
 }Student;
 
