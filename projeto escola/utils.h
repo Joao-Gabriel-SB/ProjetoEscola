@@ -7,6 +7,7 @@ void Pause();
 void AnswerField(char *a);
 void Until( char* a, char lowerest, char biggest );
 void StartMenu();
+int Confirmar();
 void Spacer(int tamanhoDaBarra);
 int GetId(void* element);
 int SearchInt( int tamanhoDoVetor, void* Nomevetor, size_t tipoDoElemento, int ( *funcGet )( void* ), int valorDesejado );

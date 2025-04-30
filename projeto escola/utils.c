@@ -59,6 +59,35 @@ void StartMenu(){
 	printf("\x1B[1;33m[0] Menu inicial\t%s",reset);
 }
 
+int Confirmar(){
+	
+	Pause();
+
+	char confirmar[StrSizeMax];
+	char a = '1';
+
+	printf("\n%sConfirmar [ENTER]\t",yellow_F);
+	printf("cancelar [0]%s\n",reset);
+	
+	do{
+
+		fgets( confirmar, StrSizeMax, stdin );
+		a = confirmar[0];
+		if(a != '\n' && a != '0')
+			printf("%sOpção invalida, tente novamente!%s\n\n", yellow_F, reset );
+		
+
+	}while( a != '\n' && a != '0' );
+
+	
+	if( a == '0' ) {
+		printf("%s\n\t\tOperação cancelada.%s",yellow_F,reset);
+		return -1;
+	}
+	if( a == '\n' ) return 0;
+
+}
+
 //=====================================================================================================================================================================================================
 
 void Spacer(int tamanhoDaBarra){
@@ -340,8 +369,7 @@ int validador_cpf (char cpf_validation[]){
     return 0;
 }
 
-int validador_data (int dia, int mes, int ano)
-{
+int validador_data (int dia, int mes, int ano){
    // Verifica ano válido
       if (ano < 1900 || ano > 2100)
           return 0;

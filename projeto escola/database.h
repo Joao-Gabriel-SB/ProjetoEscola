@@ -14,12 +14,12 @@
 
 //Alunos==============================================================================================================
 
-
-
 typedef struct{
+
         int day;
         int month;
         int year;
+
 }StructBirth;
 
 typedef struct {
@@ -35,9 +35,11 @@ typedef struct {
 }Student;
 
 Student registredStudents[MaxStudent] = {0}; 
+
 //Student copy[MaxStudent];
 int amountStudents;
 int idCounter = 202521001;
+
 
 // Disciplinas =====================================================================================================================
 
@@ -61,6 +63,7 @@ disciplina lista_disciplinas[TAM_DISCIPLINAS] = {0};
 
 int qtd_disciplina=0;
 
+
 // Professores ====================================================================================================================
 
 
@@ -82,12 +85,13 @@ typedef struct{
 	struct_nascimento nascimento;
 	char cpf[12];  
 	int ativo;
-        disciplina ProfessoresDisciplina[TAM_DISCIPLINAS];
+   disciplina ProfessoresDisciplina[TAM_DISCIPLINAS];
 
 }professores;
 
 professores ListaProfessores[MaxProfessor], CopiaProfessores[MaxProfessor], aux_struct;
 int posicao = 0;
 int IncrementadorMatricula = 202542000;
+
 
 #endif

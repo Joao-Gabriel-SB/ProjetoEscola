@@ -15,7 +15,8 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
         char search[StrSizeMax];
         int i = 0;
         int desiredIdToFind;     
-        
+        int qtdLocal=0;
+
         Student copy[ArraySize];
 
         for(int j = 0; j < ArraySize; j++ )
@@ -25,6 +26,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
             printf("\n\t\t\t\t\t%sNenhum aluno Matriculado.%s\n\n\n",yellow_F,reset);
             Pause();
             return 0;
+
         }
         
         switch (key){
@@ -47,6 +49,30 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
 
                 break;
 
+				case '4':
+
+					 for(int j = 0; j < amountStudents; j++ ){
+
+						if( registredStudents[j].qtdDisciplinas < 3 ){
+
+            			copy[j] = registredStudents[j];
+							qtdLocal++;
+
+						}
+					 }
+					 
+					 amountStudents = qtdLocal;
+					 printf("\n\namount %d\n",amountStudents);
+					 if ( amountStudents == 0 ){
+
+							printf("\n%sNão existem estudantes cadastrados em menos de 3 disciplinas.%s\n",yellow_F,reset);
+							Pause();
+							return -1;
+					 }
+
+					 printf("\tAlunos matriculados em menos de 3 disciplinas:\n");
+
+					 break;
 
             case '6': 
 
@@ -77,7 +103,6 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
             
             if( sex == '0' || (sex == '1' && copy[i].sex == 'M') || (sex == '2' && copy[i].sex == 'F')){ // separa por sexo
 
-					 putchar('\n');
                 Spacer(75);
 
 
@@ -106,12 +131,15 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
 					printf("\nDisciplinas:\t");
 					for(int j = 0; j<copy[i].qtdDisciplinas; j++)
 					 	printf("%s, ",copy[i].disciplinasCadastrado[j] );
-                
+
+               putchar('\n');
+
 						
                 if(key == '3'){
 						Pause();
 						return i;
 					 }
+
             }
         }
       Pause();
@@ -130,31 +158,32 @@ int ListarPessoas( int amountStudents, Student* registredStudents, professores* 
 	Student copyStd[ArraySize];
 	professores copyProf[ArraySize];
 
-   for(int j = 0; j < ArraySize; j++ )
-   	copyStd[j] = registredStudents[j];
-
 	amountStudents = SearchChar( registredStudents, amountStudents, copyStd, ArraySize, search, strlen(search));
 
-	ListStudents( amountStudents, registredStudents, MaxStudent, '1');
+
+	if( amountStudents != 0 ) ListStudents( amountStudents, copyStd, MaxStudent, '1' );
 
 	posicao = SearchCharProf( ListaProfessores, posicao, copyProf, ArraySize, search, strlen(search) );
 
-	ListarProfessor( copyProf, posicao );
+	if( posicao != 0 ) ListarProfessor( copyProf, posicao );
 
 	if( amountStudents == 0 && posicao == 0){
 
 		printf("\n\t\t\t\t%sNinguém foi encontrado.%s\n", yellow_F, reset);
 		Pause();
 		return -1;
+
 	}
 
 }
 
-//==========================================================================================================================================================================================
+//==========================================================================================================================================
+
 
 int InsertStudent( int* amountStudents, Student* registredStudents, const int ArraySize, int* idCounter ){
 
         char again = '1';
+		  int cancelar;
 
             while( again == '1' ){
 
@@ -191,6 +220,9 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
 		        scanf(" %[^\n]",registredStudents[*amountStudents].cpf);
 		        //validacaocpf(valido, cpf) } while(!valido);
 
+				  cancelar = Confirmar();
+				  if ( cancelar == -1 ) {Pause();return -1;}				
+
 		        registredStudents[*amountStudents].id = *idCounter;
 
 		        (*amountStudents)++;
@@ -198,7 +230,8 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
 
 		        printf("\n\n\t\t%sCadastro Realizado com sucesso!!!%s\n", yellow_F, reset);
 
-		        printf("\n\n[1] Cadastrar Outro Aluno?\t\t[2] Listar alunos cadastrados\t\t");StartMenu();
+		        printf("\n\n[1] Cadastrar Outro Aluno?\t\t[2] Listar alunos cadastrados\n");StartMenu();
+
 		        Until( &again, '0', '2' );
 		            
 		        switch (again){
@@ -206,7 +239,9 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
 				    case '1': break;
 				    case '2':
 						ListStudents( *amountStudents, registredStudents, ArraySize, '1' );
-						printf("[1] Cadastrar outro aluno"); StartMenu();
+
+						printf("\n\n[1] Cadastrar outro aluno"); StartMenu();
+
 						Until( &again, '0', '1' );
 		        }
 				
@@ -219,6 +254,15 @@ int UpdateStudent( int* amountStudents, Student* registredStudents, const int Ar
 
 		int position;
 		int sucess;		
+
+		if(*amountStudents == 0){
+
+			printf("\n\t\t\t%sNenhum aluno matriculado.%s\n\n\n",yellow_F,reset);
+			Pause();
+			return -1;
+
+	   }
+
 
 		printf("\t\t\t%sDados Atuais:%s\n", bold, reset );
 		
@@ -241,7 +285,9 @@ int UpdateStudent( int* amountStudents, Student* registredStudents, const int Ar
 		printf("%sAluno Atualizado com sucesso!!!%s", yellow_F, reset );
 				
 		}
-		
+
+	Pause();
+
 }
 
 //==========================================================================================================================================================================================
@@ -252,7 +298,17 @@ int DeleteStudent( int* amountStudents, Student* registredStudents, const int Ar
 	int desiredIdToExclude;
 	Student temp;
 
-	printf("Matricula do Aluno:\t "); scanf(" %d",&desiredIdToExclude);
+	if(*amountStudents == 0){
+
+			printf("\n\t\t\t%sNenhum aluno matriculado.%s\n\n\n",yellow_F,reset);
+			Pause();
+			return -1;
+
+	}
+
+	ListStudents( *amountStudents, registredStudents, ArraySize, '1' ); 
+
+	printf("\n\nMatricula do Aluno:\t "); scanf(" %d",&desiredIdToExclude);
 
 	for( i = 0; i < *amountStudents; i++ )
 		
@@ -285,3 +341,35 @@ int DeleteStudent( int* amountStudents, Student* registredStudents, const int Ar
 }
 
 //==========================================================================================================================================================================================
+
+void aniversarianteDoMes( int amountStudents, Student* registredStudents, professores* ListaProfessores, int posicao, int ArraySize ){
+
+	int mes;
+	int qtdLocalStd = 0;
+	int qtdLocalProf = 0;
+	Student copyStd[ArraySize];
+	professores copyProf[ArraySize];
+
+	printf("Aniversario no mes:\t");
+	scanf(" %d",&mes);
+
+	for( int i = 0; i < amountStudents; i++ ){
+		if( registredStudents[i].birthday.month == mes ){
+			copyStd[i] = registredStudents[i];
+			qtdLocalStd++;
+		}
+	}
+
+	for( int i = 0; i < posicao; i++ ){
+		if( ListaProfessores[i].nascimento.mes == mes ){
+			copyProf[i] = ListaProfessores[i];
+			qtdLocalProf++;
+		}
+	}
+
+	if ( qtdLocalStd != 0 ) ListStudents( qtdLocalStd, copyStd, ArraySize, '1');
+	if ( qtdLocalProf != 0 ) ListarProfessor( copyProf, qtdLocalProf );
+	if ( qtdLocalStd == 0 && qtdLocalProf == 0 ) {printf("\n\n\t\t%sNinguém faz aniversário nesse mês.%s",yellow_F,reset); Pause();}
+}
+
+
