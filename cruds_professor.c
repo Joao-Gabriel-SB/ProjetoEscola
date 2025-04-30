@@ -43,7 +43,7 @@ void ListarProfessor( professores ListaProfessores[], int posicao ){
          	}
 
 			printf("\nMatricula:\t%d\t\n",ListaProfessores[i].matricula );
-      // printf("\nCódigo Disciplina:\t%s\t\n\n",ListaProfessores[i].ProfessoresDisciplina[i].codigo);
+         printf("Disciplina:\t%s\t\n\n",ListaProfessores[i].ProfessoresDisciplina[i].codigo);
       // PARA PRINTAR MAIS DE UMA DISCIPLINA NECESSÁRIO COLOCAR MAIS UM FOR PARA RODAR.
     }
 
@@ -192,6 +192,8 @@ int ExcluirProfessor(professores ListaProfessores[],int *posicao){
 
 	}
 
+	
+
     printf("Informe o número de matrícula: ");
     scanf("%d",&VerificadorMatricula);
     ValueMatricula = 0;
@@ -291,7 +293,9 @@ void ListarProfessorNome(professores ListaProfessores[],professores CopiaProfess
 
 		      	}
 
-				printf("\nMatricula:\t%d\t\n\n",CopiaProfessores[i].matricula );
+				printf("\nMatricula:\t%d\n",CopiaProfessores[i].matricula );
+
+				printf("Disciplina:\t%s\t\n\n",CopiaProfessores[i].ProfessoresDisciplina[i].codigo);
 
         }
 	Pause();
@@ -356,6 +360,8 @@ void ListarProfessorIdade(professores ListaProfessores[],professores CopiaProfes
 		      	}
 
 				printf("\nMatricula:\t%d\t\n\n",CopiaProfessores[i].matricula );
+				
+				printf("\nDisciplina:\t%s\t\n\n",CopiaProfessores[i].ProfessoresDisciplina[i].codigo);
         
 	}
 	Pause();
@@ -401,7 +407,9 @@ void ListarProfessorSexo(professores ListaProfessores[], int *posicao, char key)
 		      	}
 
 				printf("\nMatricula:\t%d\t\n\n",ListaProfessores[i].matricula );
-		       
+		      
+				printf("\nDisciplina:\t%s\t\n\n",ListaProfessores[i].ProfessoresDisciplina[i].codigo);
+
 			}
 		}
 	
@@ -478,14 +486,14 @@ int BuscarPorMatriculaProf( professores ListaProfessores[], int posicao ){
 
          	}
 
-			printf("\nMatricula:\t%d\t\n\n",ListaProfessores[i].matricula );
-
+			printf("\nMatricula:\t%d\t",ListaProfessores[i].matricula );
+			printf("\nDisciplina:\t%s\t\n\n",CopiaProfessores[i].ProfessoresDisciplina[i].codigo);
          return i;
    }
    else
    {
-    printf("Não existe professor cadastrado com a matrícula digitada.\n");
-
+    printf("Não existe professor cadastrado com a matrícula digitada.");
+	 
     return -1;
     //falta decrementar caso a pessoa cadastre e erre a matrícula do professor
 

@@ -25,8 +25,9 @@ int main(){
       printf("[3] Menu Professor\t\n");
       printf("[4] Menu disciplina\t\t");
       printf("[5] Pesquisar\t\t");
+		printf("[6] Aniversariante do mes\n");
       printf("%s[0] Sair\t%s", yellow_F, reset);
-		Until(&key, '0', '5');
+		Until(&key, '0', '6');
 		system("clear||cls");
 
       if( key == '0' ) break;        
@@ -53,9 +54,9 @@ int main(){
 
                         	switch(key){
 
-			                case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent, &idCounter ); break;
+			               	 	case '4': InsertStudent( &amountStudents, registredStudents, MaxStudent, &idCounter ); break;
                            	case '5': CadastrarProfessor( ListaProfessores, MaxProfessor ,&posicao, &IncrementadorMatricula ); break;
-                           	case '6': cadastrar_disciplina(&qtd_disciplina, ListaProfessores, CopiaProfessores, aux_struct); Pause(); break;
+                           	case '6': cadastrar_disciplina( &qtd_disciplina, ListaProfessores, CopiaProfessores, aux_struct ); Pause(); break;
 			                  }                               
                             
                     break;
@@ -74,7 +75,7 @@ int main(){
 								case '2': AtualizarProfessor( ListaProfessores,&posicao); Pause();break;
 
 								
-								case '3': atualizar_disciplina(&qtd_disciplina, ListaProfessores, CopiaProfessores, aux_struct); Pause(); break;
+								case '3': atualizar_disciplina( &qtd_disciplina, ListaProfessores, CopiaProfessores, aux_struct); Pause(); break;
 							  }
     
 								break;
@@ -92,7 +93,7 @@ int main(){
 
 									case '2': ExcluirProfessor( ListaProfessores, &posicao ); Pause(); break;
 
-									case '3': excluir_disciplina(&qtd_disciplina); Pause(); break;
+									case '3': excluir_disciplina( &qtd_disciplina); Pause(); break;
 								}
 
 						  break;
@@ -108,7 +109,7 @@ int main(){
 			         printf("[1] Listar todos os alunos\t\t");
                   printf("[2] Listar alunos ordenados por...\t\t");
                   printf("[3] Buscar aluno por matricula\n");
-				  printf("[4] Listar Alunos Matriculados em menos de 3 disciplinas\t");
+				  		printf("[4] Listar Alunos Matriculados em menos de 3 disciplinas\t");
                   StartMenu();	
                     
                   Until( &key, '0', '4' );        
@@ -129,8 +130,6 @@ int main(){
                   }
                     
                   if( key != '0') ListStudents( amountStudents, registredStudents, MaxStudent, key);
-
-				  if (key == '4') ListarMenordeTres (registredStudents, MaxStudent);
                    
                   Pause();
                 	system("clear||cls");
@@ -205,9 +204,15 @@ int main(){
              
             	ListarPessoas( amountStudents, registredStudents, ListaProfessores, posicao, MaxStudent );              
                Pause();
-               break;                
-
-			}
+               break;  
+			
+				case '6':
+			
+					aniversarianteDoMes( amountStudents, registredStudents, ListaProfessores, posicao, MaxStudent );              
+					Pause();
+               break;
+				
+				}
 
         	key = '1';
 	    	system("clear||cls");

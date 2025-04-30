@@ -47,14 +47,18 @@ int cadastrar_disciplina( int *qtd_disciplina, professores ListaProfessores[], p
                 scanf("%d", &lista_disciplinas[*qtd_disciplina].semestre);
 
                 
-                ListarProfessorNome(ListaProfessores, CopiaProfessores,aux_struct, posicao);  
+                ListarProfessorNome( ListaProfessores, CopiaProfessores, aux_struct, posicao );
+  
                 returnMatricula = BuscarPorMatriculaProf(ListaProfessores, posicao);
-                if (returnMatricula == 0)
-                {
+
+                if (returnMatricula == 0){
+
                 ListaProfessores[*qtd_disciplina].ProfessoresDisciplina[*qtd_disciplina] = lista_disciplinas[*qtd_disciplina];
                 strcpy(lista_disciplinas[*qtd_disciplina].professor, ListaProfessores[posicao].nome);
+
                 lista_disciplinas[*qtd_disciplina].ativo = 1;
                 (*qtd_disciplina)++;
+
                 printf("\n\n\t\t\t\t%sCadastro Finalizado!!!%s\n", yellow_F, reset);
                 Pause();
                 return 0;
@@ -87,10 +91,12 @@ void listar_disciplina(int *qtd_disciplina){
 }
 
 
-int atualizar_disciplina(int *qtd_disciplina,professores ListaProfessores[], professores CopiaProfessores[],professores aux_struct){
+int atualizar_disciplina( int *qtd_disciplina, professores ListaProfessores[], professores CopiaProfessores[], professores aux_struct ){
+
     int returnMatricula;
     printf("                                        ATUALIZACÃO DE DISCIPLINA\n\n");
     int achou = 0;
+
     if(*qtd_disciplina==0){
         printf("\n\n\t\t\t\t\t%sNão há disciplinas para atualizar.%s\n", red_F, reset);
         return -1;
@@ -396,7 +402,7 @@ void excluir_aluno_disciplina(int *qtd_disciplina){
             printf("Não há alunos nessa disciplina.\n\n");
             Pause();
 
-        if (strcmp(lista_disciplinas[i].codigo, cod_excluir) == 0 && lista_disciplinas[i].ativo) {
+        if (strcmp(lista_disciplinas[i].codigo, cod_exc_aluno) == 0 && lista_disciplinas[i].ativo) {
             achou = 1;
             if (lista_disciplinas[i].qtd_alunos == 0) {
             printf("Não há alunos nessa disciplina.\n\n");
@@ -439,6 +445,8 @@ void excluir_aluno_disciplina(int *qtd_disciplina){
       printf("Disciplina não encontrada.\n\n");
     Pause();
     }
+	}
+	}
 }
 
 void ListarDisciplinasLotadas(disciplina lista_disciplinas[],int MaxDisciplina){

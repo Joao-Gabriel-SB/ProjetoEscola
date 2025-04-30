@@ -15,7 +15,8 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
         char search[StrSizeMax];
         int i = 0;
         int desiredIdToFind;     
-        
+        int qtdLocal=0;
+
         Student copy[ArraySize];
 
         for(int j = 0; j < ArraySize; j++ )
@@ -24,7 +25,7 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
         if( amountStudents == 0 ) {
             printf("\n\t\t\t\t\t%sNenhum aluno Matriculado.%s\n\n\n",yellow_F,reset);
             Pause();
-            return -1;
+            return 0;
 
         }
         
@@ -47,6 +48,31 @@ int ListStudents(int amountStudents, Student* registredStudents, const int Array
                 }
 
                 break;
+
+				case '4':
+
+					 for(int j = 0; j < amountStudents; j++ ){
+
+						if( registredStudents[j].qtdDisciplinas < 3 ){
+
+            			copy[j] = registredStudents[j];
+							qtdLocal++;
+
+						}
+					 }
+					 
+					 amountStudents = qtdLocal;
+					 printf("\n\namount %d\n",amountStudents);
+					 if ( amountStudents == 0 ){
+
+							printf("\n%sNão existem estudantes cadastrados em menos de 3 disciplinas.%s\n",yellow_F,reset);
+							Pause();
+							return -1;
+					 }
+
+					 printf("\tAlunos matriculados em menos de 3 disciplinas:\n");
+
+					 break;
 
             case '6': 
 
@@ -132,13 +158,10 @@ int ListarPessoas( int amountStudents, Student* registredStudents, professores* 
 	Student copyStd[ArraySize];
 	professores copyProf[ArraySize];
 
-   for(int j = 0; j < ArraySize; j++ )
-   	copyStd[j] = registredStudents[j];
-
 	amountStudents = SearchChar( registredStudents, amountStudents, copyStd, ArraySize, search, strlen(search));
 
 
-	if( amountStudents != 0 ) ListStudents( amountStudents, registredStudents, MaxStudent, '1' );
+	if( amountStudents != 0 ) ListStudents( amountStudents, copyStd, MaxStudent, '1' );
 
 	posicao = SearchCharProf( ListaProfessores, posicao, copyProf, ArraySize, search, strlen(search) );
 
@@ -160,6 +183,7 @@ int ListarPessoas( int amountStudents, Student* registredStudents, professores* 
 int InsertStudent( int* amountStudents, Student* registredStudents, const int ArraySize, int* idCounter ){
 
         char again = '1';
+		  int cancelar;
 
             while( again == '1' ){
 
@@ -195,6 +219,9 @@ int InsertStudent( int* amountStudents, Student* registredStudents, const int Ar
 		        printf("Cpf:\t\t\t\t");
 		        scanf(" %[^\n]",registredStudents[*amountStudents].cpf);
 		        //validacaocpf(valido, cpf) } while(!valido);
+
+				  cancelar = Confirmar();
+				  if ( cancelar == -1 ) {Pause();return -1;}				
 
 		        registredStudents[*amountStudents].id = *idCounter;
 
@@ -279,7 +306,9 @@ int DeleteStudent( int* amountStudents, Student* registredStudents, const int Ar
 
 	}
 
-	printf("Matricula do Aluno:\t "); scanf(" %d",&desiredIdToExclude);
+	ListStudents( *amountStudents, registredStudents, ArraySize, '1' ); 
+
+	printf("\n\nMatricula do Aluno:\t "); scanf(" %d",&desiredIdToExclude);
 
 	for( i = 0; i < *amountStudents; i++ )
 		
@@ -313,24 +342,34 @@ int DeleteStudent( int* amountStudents, Student* registredStudents, const int Ar
 
 //==========================================================================================================================================================================================
 
-void ListarMenordeTres (Student registredStudents[], int TamStudent){
-	int i;
-	int j = 0;
-	system("clear || cls");
-	printf("\t\t\tAlunos matriculados em menos de 3 disciplinas:\n");
-    for (i=0; i < TamStudent; i++)
-    {
-        if(registredStudents[i].qtdDisciplinas < 2)
-        {
-            printf(" %s\n",registredStudents[i].name); 
-			j = 1;
-        }
-    }
+void aniversarianteDoMes( int amountStudents, Student* registredStudents, professores* ListaProfessores, int posicao, int ArraySize ){
 
-	if (j == 0)
-	{
-		printf("Não existem estudantes cadastrados em menos de 3 disciplinas.\n");
+	int mes;
+	int qtdLocalStd = 0;
+	int qtdLocalProf = 0;
+	Student copyStd[ArraySize];
+	professores copyProf[ArraySize];
+
+	printf("Aniversario no mes:\t");
+	scanf(" %d",&mes);
+
+	for( int i = 0; i < amountStudents; i++ ){
+		if( registredStudents[i].birthday.month == mes ){
+			copyStd[i] = registredStudents[i];
+			qtdLocalStd++;
+		}
 	}
-	Pause();
+
+	for( int i = 0; i < posicao; i++ ){
+		if( ListaProfessores[i].nascimento.mes == mes ){
+			copyProf[i] = ListaProfessores[i];
+			qtdLocalProf++;
+		}
+	}
+
+	if ( qtdLocalStd != 0 ) ListStudents( qtdLocalStd, copyStd, ArraySize, '1');
+	if ( qtdLocalProf != 0 ) ListarProfessor( copyProf, qtdLocalProf );
+	if ( qtdLocalStd == 0 && qtdLocalProf == 0 ) {printf("\n\n\t\t%sNinguém faz aniversário nesse mês.%s",yellow_F,reset); Pause();}
 }
+
 
